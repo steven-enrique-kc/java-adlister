@@ -34,6 +34,15 @@ public class ListAdsDao implements Ads {
         return ad.getId();
     }
 
+    public Ad findAdd(String title){
+        if (ads == null) {
+            ads = generateAds();
+        }
+        int adIndex = ads.indexOf(title);
+        Ad ad = ads.get(adIndex);
+        return ad;
+    };
+
     private List<Ad> generateAds() {
         List<Ad> ads = new ArrayList<>();
         ads.add(new Ad(

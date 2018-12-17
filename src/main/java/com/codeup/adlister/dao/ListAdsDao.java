@@ -34,7 +34,6 @@ public class ListAdsDao implements Ads {
         return ad.getId();
     }
 
-<<<<<<< HEAD
     public List<Ad> searchAds(String searchTerm) {
         if (ads == null) {
             ads = generateAds();

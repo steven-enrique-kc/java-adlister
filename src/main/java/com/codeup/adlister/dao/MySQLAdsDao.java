@@ -2,7 +2,6 @@ package com.codeup.adlister.dao;
 
 import com.codeup.adlister.Config;
 import com.codeup.adlister.models.Ad;
-import com.codeup.adlister.Config;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
@@ -99,7 +98,7 @@ public class MySQLAdsDao implements Ads {
         }
         return ads;
     }
-<<<<<<< HEAD
+
     @Override
     public List<Ad> searchAds(String searchTerm) {
         List<Ad> ads = new ArrayList<>();

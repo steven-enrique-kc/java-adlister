@@ -15,6 +15,13 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
+    public List<Ad> getUsersAds(long id) {
+        if (ads == null) {
+            ads = generateAds();
+        }
+        return ads;
+    }
+
     public Long insert(Ad ad) {
         // make sure we have ads
         if (ads == null) {
@@ -27,6 +34,7 @@ public class ListAdsDao implements Ads {
         return ad.getId();
     }
 
+<<<<<<< HEAD
     public List<Ad> searchAds(String searchTerm) {
         if (ads == null) {
             ads = generateAds();
@@ -49,6 +57,7 @@ public class ListAdsDao implements Ads {
 //            }
 //        }
 //    myArrayList.removeAll(toRemove);
+
 
     public Ad findAdd(String title){
         if (ads == null) {

@@ -10,7 +10,9 @@ public interface Ads {
     // insert a new ad and return the new ad's id
     Long insert(Ad ad);
 
+
     List<Ad> searchAds(String searchTerm);
+
 
     Ad findAdd(String title);
     //Retrieve the user's ads

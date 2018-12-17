@@ -70,16 +70,21 @@ public class MySQLAdsDao implements Ads {
         return ads;
     }
 
-    public Ad findAdd(int adID){
+    @Override
+    public Ad findAdd(String title){
         PreparedStatement stmt = null;
         try {
             String prepStat = "SELECT * FROM ads WHERE title = ?";
             stmt = connection.prepareStatement(prepStat, Statement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, adID);
+            stmt.setString(1, title);
             ResultSet rs = stmt.executeQuery();
-            return extractAd(rs);
+            rs.next();
+            Ad ad = new Ad(rs.getLong("id"),
+                    rs.getString("title"),
+                    rs.getString("description"));
+            return ad;
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving all ads.", e);
+            throw new RuntimeException("Error retrieving this ad.", e);
         }
     }
 }

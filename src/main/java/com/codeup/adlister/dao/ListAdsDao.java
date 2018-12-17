@@ -34,6 +34,31 @@ public class ListAdsDao implements Ads {
         return ad.getId();
     }
 
+<<<<<<< HEAD
+    public List<Ad> searchAds(String searchTerm) {
+        if (ads == null) {
+            ads = generateAds();
+        }
+
+        List<Ad> newList = new ArrayList<>();
+        for (Ad ad : ads) {
+            if (!ad.getTitle().contains(searchTerm) && !ad.getDescription().contains(searchTerm)) {
+                newList.add(ad);
+            }
+        }
+        ads.removeAll(newList);
+        return ads;
+    }
+
+//    List<String> toRemove = new ArrayList<String>();
+//    for (String str : myArrayList) {
+//            if (someCondition) {
+//                toRemove.add(str);
+//            }
+//        }
+//    myArrayList.removeAll(toRemove);
+
+
     public Ad findAdd(String title){
         if (ads == null) {
             ads = generateAds();
@@ -70,5 +95,13 @@ public class ListAdsDao implements Ads {
             "Must have strong Java skills"
         ));
         return ads;
+    }
+
+    public static void main(String[] args) {
+        String searchTerm = "for";
+        ListAdsDao mDao = new ListAdsDao();
+
+        List<Ad> results = mDao.searchAds(searchTerm);
+        System.out.println(results.get(0).getDescription());
     }
 }

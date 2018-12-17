@@ -12,7 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.IndivAdServlet", urlPatterns = "/ads/indiv")
 public class IndivAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("thisAds", DaoFactory.getAdsDao().all());
+        request.setAttribute("thisAds", DaoFactory.getAdsDao());
         request.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(request, response);
     }
 }

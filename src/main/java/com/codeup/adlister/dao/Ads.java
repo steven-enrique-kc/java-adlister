@@ -11,4 +11,8 @@ public interface Ads {
     Long insert(Ad ad);
 
     List<Ad> searchAds(String searchTerm);
+
+    Ad findAdd(String title);
+    //Retrieve the user's ads
+    List<Ad> getUsersAds(long id);
 }

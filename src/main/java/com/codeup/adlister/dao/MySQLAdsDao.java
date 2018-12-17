@@ -1,11 +1,9 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.util.Config;
 import com.mysql.cj.jdbc.Driver;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +37,19 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
+    public List<Ad> getUsersAds(long id) {
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE user_id = ?");
+            stmt.setLong(1, id);
+            ResultSet rs = stmt.executeQuery();
+            return createAdsFromResults(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving user\'s ads.", e);
+        }
+    }
+
+    @Override
     public Long insert(Ad ad) {
         try {
             String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
@@ -53,6 +64,22 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
         }
+    }
+
+    public Ad EditAd(Ad ad) {
+        PreparedStatement stmt = null;
+                try {
+                    String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
+                    stmt = connection.prepareStatement(editQuery);
+                            stmt.setString(1, ad.getTitle());
+                            stmt.setString(2, ad.getDescription());
+                            stmt.setLong(3, ad.getId());
+
+                            stmt.executeUpdate();
+                            return ad;
+                } catch(SQLException e) {
+                    throw new RuntimeException("Error in editing ad.", e);
+                }
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {

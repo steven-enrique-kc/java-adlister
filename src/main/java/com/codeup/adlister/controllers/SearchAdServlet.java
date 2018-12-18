@@ -27,7 +27,9 @@ public class SearchAdServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		session.setAttribute("ad", adResults);
+//		was calling "ads" plural in jsp but defined it as ad in here
+
+		session.setAttribute("ads", adResults);
 
 
 //    	request.setAttribute("ad", DaoFactory.getAdsDao().searchAds(searchTerm));

@@ -102,21 +102,24 @@ public class MySQLAdsDao implements Ads {
     @Override
     public List<Ad> searchAds(String searchTerm) {
         List<Ad> ads = new ArrayList<>();
-
+//        needed to put search term in betwwen wild cards
+        String searchTermWithWildcards = "%" + searchTerm + "%";
         try {
             String insertQuery = "SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, searchTerm);
-            stmt.setString(2, searchTerm);
+            stmt.setString(1, searchTermWithWildcards);
+            stmt.setString(2, searchTermWithWildcards);
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            ads.add(new Ad(
-                    rs.getLong("id"),
-                    rs.getLong("user_id"),
-                    rs.getString("title"),
-                    rs.getString("description")
-            ));
-
+//            have to loop through everything to get more than one result
+            while (rs.next()){
+                ads.add(new Ad(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+                        rs.getString("title"),
+                        rs.getString("description")
+                ));
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving ads searched for.", e);
         }
@@ -159,5 +162,12 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving this ad.", e);
         }
+    }
+
+    public static void main(String[] args) {
+        String searchTerm = "Here";
+        MySQLAdsDao mdao = new MySQLAdsDao(new Config());
+        List<Ad> searchResults = mdao.searchAds(searchTerm);
+        System.out.println(searchResults.get(2).getTitle());
     }
 }

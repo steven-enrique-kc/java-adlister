@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 	<h1>Search for Ads</h1>
-	<form action="/ads/search" method="post">
+	<form>
 		<div class="form-group">
 			<label for="search">Search</label>
 			<input id="search" name="search" class="form-control" type="text">

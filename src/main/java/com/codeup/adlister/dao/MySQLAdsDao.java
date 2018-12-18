@@ -101,50 +101,17 @@ public class MySQLAdsDao implements Ads {
 
     @Override
     public List<Ad> searchAds(String searchTerm) {
-        List<Ad> ads = new ArrayList<>();
-//        needed to put search term in betwwen wild cards
-        String searchTermWithWildcards = "%" + searchTerm + "%";
+        PreparedStatement stmt = null;
         try {
-            String insertQuery = "SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, searchTermWithWildcards);
-            stmt.setString(2, searchTermWithWildcards);
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?");
+            stmt.setString(1, '%' + searchTerm + '%');
+            stmt.setString(2, '%' + searchTerm + '%');
             ResultSet rs = stmt.executeQuery();
-            rs.next();
-//            have to loop through everything to get more than one result
-            while (rs.next()){
-                ads.add(new Ad(
-                        rs.getLong("id"),
-                        rs.getLong("user_id"),
-                        rs.getString("title"),
-                        rs.getString("description")
-                ));
-            }
+            return createAdsFromResults(rs);
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving ads searched for.", e);
+            throw new RuntimeException("Error retrieving requested ads.", e);
         }
-        return ads;
     }
-
-
-
-//    public Ad findAdd(String title){
-//        PreparedStatement stmt = null;
-//        try {
-//            String prepStat = "SELECT * FROM ads WHERE title = ?";
-//            stmt = connection.prepareStatement(prepStat, Statement.RETURN_GENERATED_KEYS);
-//            stmt.setString(1, title);
-//            ResultSet rs = stmt.executeQuery();
-//            rs.next();
-//            Ad ad = new Ad(rs.getLong("id"),
-//                    rs.getString("title"),
-//                    rs.getString("description"));
-//            return ad;
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error retrieving all ads.", e);
-//        }
-//    }
-
 
     @Override
     public Ad findAdd(String title){

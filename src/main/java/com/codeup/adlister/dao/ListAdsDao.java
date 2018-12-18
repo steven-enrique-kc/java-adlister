@@ -49,15 +49,6 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
-//    List<String> toRemove = new ArrayList<String>();
-//    for (String str : myArrayList) {
-//            if (someCondition) {
-//                toRemove.add(str);
-//            }
-//        }
-//    myArrayList.removeAll(toRemove);
-
-
     public Ad findAdd(String title){
         if (ads == null) {
             ads = generateAds();
@@ -96,11 +87,4 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
-    public static void main(String[] args) {
-        String searchTerm = "for";
-        ListAdsDao mDao = new ListAdsDao();
-
-        List<Ad> results = mDao.searchAds(searchTerm);
-        System.out.println(results.get(0).getDescription());
-    }
 }

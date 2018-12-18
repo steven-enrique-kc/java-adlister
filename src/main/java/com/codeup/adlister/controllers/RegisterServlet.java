@@ -17,6 +17,9 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
+        request.setAttribute("notFilled", null);
+        request.setAttribute("passNotMatch", null);
+        request.setAttribute("hasDuplicate", null);
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -30,15 +33,28 @@ public class RegisterServlet extends HttpServlet {
 
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
-            || password.isEmpty()
-            || (! password.equals(passwordConfirmation));
+            || password.isEmpty();
 
         if (inputHasErrors) {
-            response.sendRedirect("/register");
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("password", request.getParameter("password"));
+            request.setAttribute("notFilled", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        }
+
+        if ((! password.equals(passwordConfirmation))) {
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("passNotMatch", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
             return;
         }
 
         if (duplicateUsername){
+            request.setAttribute("password", request.getParameter("password"));
+            request.setAttribute("email", request.getParameter("email"));
             request.setAttribute("hasDuplicate", true);
             request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 //            response.sendRedirect("/register");

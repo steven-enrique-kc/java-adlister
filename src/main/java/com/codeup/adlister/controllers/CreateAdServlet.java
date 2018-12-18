@@ -1,6 +1,7 @@
 package com.codeup.adlister.controllers;
 
 import com.codeup.adlister.dao.DaoFactory;
+import com.codeup.adlister.dao.MySQLAdsDao;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
@@ -23,9 +25,31 @@ public class CreateAdServlet extends HttpServlet {
             .forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
         User user = (User) request.getSession().getAttribute("user");
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+        if (request.getParameter("title").equals("")){
+            String description = request.getParameter("description");
+            request.setAttribute("description", description);
+            request.setAttribute("allValues", true);
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+            return;
+        }
+        if (request.getParameter("description").equals("")){
+            String title = request.getParameter("title");
+            request.setAttribute("title", title);
+            request.setAttribute("allValues", true);
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+            return;
+        }
+//        Try to make the check where title isnt reused
+//        if (DaoFactory.getAdsDao().findAdd(request.getParameter("title")) != null){
+//            String description = request.getParameter("description");
+//            request.setAttribute("description", description);
+//            request.setAttribute("duplicateTitle", true);
+//            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+//            return;
+//        }
         Ad ad = new Ad(
             user.getId(),
             request.getParameter("title"),

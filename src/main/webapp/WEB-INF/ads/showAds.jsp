@@ -20,6 +20,10 @@
         <jsp:param name="title" value="${thisAdd.title}" />
         <jsp:param name="description" value="${thisAdd.description}" />
     </jsp:include>
+    <form action="/ads" method="get">
+        <input type="submit" value="Return to Ads"
+               name="Submit" id="frm1_submit" />
+    </form>
 </div>
 </body>
 </html>

@@ -15,6 +15,13 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
+    public List<Ad> getUsersAds(long id) {
+        if (ads == null) {
+            ads = generateAds();
+        }
+        return ads;
+    }
+
     public Long insert(Ad ad) {
         // make sure we have ads
         if (ads == null) {
@@ -42,13 +49,14 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
-//    List<String> toRemove = new ArrayList<String>();
-//    for (String str : myArrayList) {
-//            if (someCondition) {
-//                toRemove.add(str);
-//            }
-//        }
-//    myArrayList.removeAll(toRemove);
+    public Ad findAdd(String title){
+        if (ads == null) {
+            ads = generateAds();
+        }
+        int adIndex = ads.indexOf(title);
+        Ad ad = ads.get(adIndex);
+        return ad;
+    };
 
     private List<Ad> generateAds() {
         List<Ad> ads = new ArrayList<>();
@@ -79,11 +87,4 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
-    public static void main(String[] args) {
-        String searchTerm = "for";
-        ListAdsDao mDao = new ListAdsDao();
-
-        List<Ad> results = mDao.searchAds(searchTerm);
-        System.out.println(results.get(0).getDescription());
-    }
 }

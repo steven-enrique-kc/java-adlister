@@ -53,7 +53,8 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-    public User EditUser(User user) {
+    @Override
+    public User editUser(User user) {
         PreparedStatement stmt = null;
 
         try {
@@ -62,6 +63,7 @@ public class MySQLUsersDao implements Users {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getEmail());
             stmt.setString(3, user.getPassword());
+            stmt.setLong(4, user.getId());
             stmt.executeUpdate();
             return user;
         } catch (SQLException e) {
@@ -79,6 +81,11 @@ public class MySQLUsersDao implements Users {
             rs.getString("email"),
             rs.getString("password")
         );
+
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }

@@ -130,4 +130,11 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving this ad.", e);
         }
     }
+
+    public static void main(String[] args) {
+        String searchTerm = "Here";
+        MySQLAdsDao mdao = new MySQLAdsDao(new Config());
+        List<Ad> searchResults = mdao.searchAds(searchTerm);
+        System.out.println(searchResults.get(2).getTitle());
+    }
 }

@@ -16,13 +16,18 @@ public class RegisterServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
         // validate input
+        boolean duplicateUsername = false;
+        if (DaoFactory.getUsersDao().findByUsername(username) != null){
+            duplicateUsername = true;
+        }
+
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty()
@@ -33,7 +38,15 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+        if (duplicateUsername){
+            request.setAttribute("hasDuplicate", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+//            response.sendRedirect("/register");
+            return;
+        }
+
         // create and save a new user
+        request.removeAttribute("hasDuplicate");
         User user = new User(username, email, password);
         DaoFactory.getUsersDao().insert(user);
         response.sendRedirect("/login");

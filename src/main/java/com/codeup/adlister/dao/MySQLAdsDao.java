@@ -66,7 +66,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    public Ad EditAd(Ad ad) {
+    public Ad editAd(Ad ad) {
         PreparedStatement stmt = null;
                 try {
                     String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
@@ -123,6 +123,7 @@ public class MySQLAdsDao implements Ads {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             Ad ad = new Ad(rs.getLong("id"),
+                    rs.getLong("user_id"),
                     rs.getString("title"),
                     rs.getString("description"));
             return ad;

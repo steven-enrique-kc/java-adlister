@@ -27,8 +27,11 @@ public class CreateAdServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
-        User user = (User) request.getSession().getAttribute("user");
-        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+        String username = (String) request.getSession().getAttribute("username");
+
+        User user = DaoFactory.getUsersDao().findByUsername(username);
+        User user1 = (User) request.getSession().getAttribute("user");
+        List<Ad> userAds1 = DaoFactory.getAdsDao().getUsersAds(user.getId());
 
         boolean duplicateAdTitle = false;
         List<Ad> ads = DaoFactory.getAdsDao().all();
@@ -74,7 +77,9 @@ public class CreateAdServlet extends HttpServlet {
             request.getParameter("description")
         );
         DaoFactory.getAdsDao().insert(ad);
+        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+
         request.getSession().setAttribute("userAds", userAds);
-        response.sendRedirect("/ads");
+        response.sendRedirect("/profile");
     }
 }

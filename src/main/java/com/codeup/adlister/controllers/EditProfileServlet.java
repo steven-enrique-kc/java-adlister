@@ -72,6 +72,7 @@ public class EditProfileServlet extends HttpServlet {
         request.getSession().setAttribute("password", user.getPassword());
         request.getSession().setAttribute("email", user.getEmail());
         request.getSession().setAttribute("userid", user.getId());
+        request.getSession().setAttribute("userAds", userAds);
         response.sendRedirect("/profile");
     }
 

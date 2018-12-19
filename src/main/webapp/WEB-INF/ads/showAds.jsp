@@ -20,6 +20,7 @@
         <jsp:param name="title" value="${thisAdd.userId}" />
         <jsp:param name="title" value="${thisAdd.title}" />
         <jsp:param name="description" value="${thisAdd.description}" />
+        <jsp:param name="userId" value="${thisAdd.userId}" />
     </jsp:include>
 </div>
 </body>

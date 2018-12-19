@@ -68,6 +68,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
     public List<Integer> categories(List<Integer> categories, Ad ad) {
         List<Integer> result = new ArrayList<>();
 
@@ -93,7 +94,9 @@ public class MySQLAdsDao implements Ads {
     }
 
 
-    public Ad EditAd(Ad ad) {
+
+    public Ad editAd(Ad ad) {
+
         PreparedStatement stmt = null;
                 try {
                     String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
@@ -150,6 +153,7 @@ public class MySQLAdsDao implements Ads {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             Ad ad = new Ad(rs.getLong("id"),
+                    rs.getLong("user_id"),
                     rs.getString("title"),
                     rs.getString("description"));
             return ad;
@@ -175,18 +179,4 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    public static void main(String[] args) {
-        Ad ad = new Ad(1, "Car", "This is a ball");
-
-        List<Integer> integers = new ArrayList<>();
-        integers.add(1);
-        integers.add(2);
-        integers.add(3);
-        integers.add(4);
-
-        MySQLAdsDao aDao = new MySQLAdsDao(new Config());
-        aDao.categories(integers, ad);
-
-
-    }
 }

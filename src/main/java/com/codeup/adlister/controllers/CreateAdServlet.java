@@ -27,9 +27,31 @@ public class CreateAdServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
+
         User user = (User) request.getSession().getAttribute("user");
-        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+//        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
         List<Integer> categories = new ArrayList<>();
+
+        String username = (String) request.getSession().getAttribute("username");
+
+
+        boolean duplicateAdTitle = false;
+        List<Ad> ads = DaoFactory.getAdsDao().all();
+        for (Ad ad : ads){
+            if (ad.getTitle().equals(request.getParameter("title"))){
+                duplicateAdTitle = true;
+            }
+        }
+
+        if (duplicateAdTitle){
+            String description = request.getParameter("description");
+            request.setAttribute("description", description);
+            request.setAttribute("duplicateTitle", true);
+            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
+            return;
+        }
+
+
         if (request.getParameter("title").equals("")){
             String description = request.getParameter("description");
             request.setAttribute("description", description);
@@ -44,6 +66,7 @@ public class CreateAdServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
             return;
         }
+
 
         if (request.getParameter("1").equals("1")) {
             categories.add(1);
@@ -66,7 +89,10 @@ public class CreateAdServlet extends HttpServlet {
             request.getParameter("description")
         );
         DaoFactory.getAdsDao().insert(ad);
+        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+
         request.getSession().setAttribute("userAds", userAds);
+
         response.sendRedirect("/ads");
 
 

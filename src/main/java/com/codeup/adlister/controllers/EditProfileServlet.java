@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static com.codeup.adlister.controllers.RegisterServlet.meetsRequirement;
+
 @WebServlet(name = "controllers.EditProfileServlet", urlPatterns = "/editprofile")
 public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,26 +22,37 @@ public class EditProfileServlet extends HttpServlet {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
-        // validate input
-        boolean duplicateUsername = false;
-        if (DaoFactory.getUsersDao().findByUsername(username) != null){
-            duplicateUsername = true;
-        }
-
         boolean inputHasErrors = username.isEmpty()
                 || email.isEmpty()
                 || password.isEmpty()
                 || (! password.equals(passwordConfirmation));
+
+        if (!RegisterServlet.meetsRequirement(password)){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("passwordNoMatch", true);
+            request.getRequestDispatcher("/WEB-INF/editprofile.jsp").forward(request, response);
+            return;
+        }
+
+        if (!RegisterServlet.isValidEmailAddress(email)){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("password", request.getParameter("password"));
+            request.setAttribute("notFormatEmail", true);
+            request.getRequestDispatcher("/WEB-INF/editprofile.jsp").forward(request, response);
+            return;
+        }
 
         if (inputHasErrors) {
             response.sendRedirect("/editprofile");
             return;
         }
 
-        if (duplicateUsername){
-            request.setAttribute("hasDuplicate", true);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-//            response.sendRedirect("/register");
+        if ((! password.equals(passwordConfirmation))) {
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("passNotMatch", true);
+            request.getRequestDispatcher("/WEB-INF/editprofile.jsp").forward(request, response);
             return;
         }
 
@@ -59,16 +72,22 @@ public class EditProfileServlet extends HttpServlet {
         request.getSession().setAttribute("password", user.getPassword());
         request.getSession().setAttribute("email", user.getEmail());
         request.getSession().setAttribute("userid", user.getId());
+        request.getSession().setAttribute("userAds", userAds);
         response.sendRedirect("/profile");
     }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/editprofile");
             return;
         }
 
+        String username = user.getUsername();
+        String email = user.getEmail();
+        request.setAttribute("username",username);
+        request.setAttribute("email",email);
         request.getRequestDispatcher("/WEB-INF/editprofile.jsp").forward(request, response);
     }
 }

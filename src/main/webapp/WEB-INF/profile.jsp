@@ -18,7 +18,10 @@
             <div>
     Email: <cd:out value="${email}"></cd:out>
             </div>
-            <button>Edit Profile</button>
+        <form action="/editprofile" method="get">
+            <input type="submit" value="Edit Profile"
+                   name="Submit" id="frm2_submit" />
+        </form>
         <h2>Here are your ads</h2>
         <cd:forEach var="ad" items="${userAds}">
                 <div class="col-xs-6">
@@ -27,6 +30,7 @@
                 </div>
             </cd:forEach>
     </div>
+
 
 
 </body>

@@ -17,6 +17,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <jsp:include page="/WEB-INF/partials/adContent.jsp">
+        <jsp:param name="title" value="${thisAdd.userId}" />
         <jsp:param name="title" value="${thisAdd.title}" />
         <jsp:param name="description" value="${thisAdd.description}" />
         <jsp:param name="userId" value="${thisAdd.userId}" />

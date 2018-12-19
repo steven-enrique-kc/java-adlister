@@ -132,10 +132,27 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    public int findThisAdd(String title){
+        int answer = 0;
+        PreparedStatement stmt = null;
+        try {
+            String prepStat = "SELECT id FROM ads WHERE title = ?";
+            stmt = connection.prepareStatement(prepStat, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, title);
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(rs);
+            rs.next();
+            answer = rs.getInt(1);
+            return answer;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving this ad.", e);
+        }
+    }
+
     public static void main(String[] args) {
-        String searchTerm = "Here";
+        String searchTerm = "A wii";
         MySQLAdsDao mdao = new MySQLAdsDao(new Config());
-        List<Ad> searchResults = mdao.searchAds(searchTerm);
-        System.out.println(searchResults.get(2).getTitle());
+        int userId = mdao.findThisAdd(searchTerm);
+        System.out.println(userId);
     }
 }

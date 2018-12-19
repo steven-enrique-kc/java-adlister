@@ -24,6 +24,11 @@
                        name="Submit" id="editprofile_submit" />
             </form>
         </div>        <h2>Here are your ads</h2>
+        <form action="/editprofile" method="get">
+            <input type="submit" value="Edit Profile"
+                   name="Submit" id="frm2_submit" />
+        </form>
+        <h2>Here are your ads</h2>
         <cd:forEach var="ad" items="${userAds}">
             <div class="col-md-6">
                 <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
@@ -36,6 +41,7 @@
 
             </cd:forEach>
     </div>
+
 
 
 </body>

@@ -20,6 +20,8 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("/profile");
             return;
         }
+        String referer = request.getHeader("Referer");
+        request.getSession().setAttribute("PrevPage", referer);
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
@@ -27,7 +29,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         User user = DaoFactory.getUsersDao().findByUsername(username);
-
         if (user == null) {
             request.getSession().setAttribute("username", username);
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -39,6 +40,14 @@ public class LoginServlet extends HttpServlet {
         boolean validAttempt = Password.check(password, user.getPassword());
 
         if (validAttempt) {
+//            if (prevSite != null){
+//                request.getSession().setAttribute("user", user);
+//                request.getSession().setAttribute("username", user.getUsername());
+//                request.getSession().setAttribute("email", user.getEmail());
+//                request.getSession().setAttribute("userid", user.getId());
+//                request.getSession().setAttribute("userAds", userAds);
+//                response.sendRedirect("/profile");
+//            }
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("username", user.getUsername());
             request.getSession().setAttribute("email", user.getEmail());

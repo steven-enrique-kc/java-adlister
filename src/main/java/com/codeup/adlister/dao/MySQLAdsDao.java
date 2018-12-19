@@ -52,11 +52,13 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?);"+
+                    "";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
+
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -66,7 +68,35 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+    public List<Integer> categories(List<Integer> categories, Ad ad) {
+        List<Integer> result = new ArrayList<>();
+
+        try {
+            for(int i = 0; i < categories.size(); i ++) {
+                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
+                PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+
+                stmt.setLong(1, findThisAdd(ad.getTitle()));
+                stmt.setInt(2, categories.indexOf(i));
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                result.add(rs.getInt(1));
+                }
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+
+    }
+
+
+
     public Ad editAd(Ad ad) {
+
         PreparedStatement stmt = null;
                 try {
                     String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
@@ -149,10 +179,4 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    public static void main(String[] args) {
-        String searchTerm = "A wii";
-        MySQLAdsDao mdao = new MySQLAdsDao(new Config());
-        int userId = mdao.findThisAdd(searchTerm);
-        System.out.println(userId);
-    }
 }

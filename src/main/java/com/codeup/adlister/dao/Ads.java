@@ -15,4 +15,6 @@ public interface Ads {
     Ad findAdd(String title);
     //Retrieve the user's ads
     List<Ad> getUsersAds(long id);
+
+    Ad editAd(Ad ad);
 }

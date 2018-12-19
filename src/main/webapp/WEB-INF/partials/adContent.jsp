@@ -12,6 +12,11 @@
 
         </c:choose>
 
+    <h1>User ID : ${sessionScope.user.id}</h1>
+    <h1>Ad user ID : ${param.userId}</h1>
+    <h1>Ad ID : ${sessionScope.thisAdd.id}</h1>
+
+
     <div class="card-body">
         <h5 class="card-title">${param.title}</h5>
         <p class="card-text">${param.description}</p>
@@ -24,6 +29,14 @@
                    name="Submit" id="frm2_submit" />
         </form>
     </div>
+
+    <c:if test="${sessionScope.user.id == param.userId}">
+        <form name="submitForm${sessionScope.thisAdd.id}" method="POST" action="/editad">
+            <input type="submit" name="param1" value="Edit Ad">
+            <A HREF="javascript:document.submitForm${sessionScope.thisAdd.id}.submit()">What is this</A>
+        </form>    </c:if>
+
+
 </div>
 
 

@@ -18,13 +18,22 @@
             <div>
     Email: <cd:out value="${email}"></cd:out>
             </div>
-            <button>Edit Profile</button>
-        <h2>Here are your ads</h2>
+        <div>
+            <form action="/editprofile" method="get">
+                <input type="submit" value="Edit Profile"
+                       name="Submit" id="editprofile_submit" />
+            </form>
+        </div>        <h2>Here are your ads</h2>
         <cd:forEach var="ad" items="${userAds}">
-                <div class="col-xs-6">
-                    <h2>${ad.title}</h2>
-                    <p>${ad.description}</p>
-                </div>
+            <div class="col-md-6">
+                <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
+                    <input type="hidden" name="param1" value="${ad.title}" style="display: none" >
+                    <A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
+                </form>
+
+                <p>${ad.description}</p>
+            </div>
+
             </cd:forEach>
     </div>
 

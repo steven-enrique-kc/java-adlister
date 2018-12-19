@@ -52,11 +52,13 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?)";
+            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?);"+
+                    "";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
             stmt.setString(2, ad.getTitle());
             stmt.setString(3, ad.getDescription());
+
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -65,6 +67,31 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error creating a new ad.", e);
         }
     }
+
+    public List<Integer> categories(List<Integer> categories, Ad ad) {
+        List<Integer> result = new ArrayList<>();
+
+        try {
+            for(int i = 0; i < categories.size(); i ++) {
+                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
+                PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+
+                stmt.setLong(1, findThisAdd(ad.getTitle()));
+                stmt.setInt(2, categories.indexOf(i));
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                result.add(rs.getInt(1));
+                }
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+
+    }
+
 
     public Ad EditAd(Ad ad) {
         PreparedStatement stmt = null;
@@ -131,10 +158,35 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    public int findThisAdd(String title){
+        int answer = 0;
+        PreparedStatement stmt = null;
+        try {
+            String prepStat = "SELECT id FROM ads WHERE title = ?";
+            stmt = connection.prepareStatement(prepStat, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, title);
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(rs);
+            rs.next();
+            answer = rs.getInt(1);
+            return answer;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving this ad.", e);
+        }
+    }
+
     public static void main(String[] args) {
-        String searchTerm = "Here";
-        MySQLAdsDao mdao = new MySQLAdsDao(new Config());
-        List<Ad> searchResults = mdao.searchAds(searchTerm);
-        System.out.println(searchResults.get(2).getTitle());
+        Ad ad = new Ad(1, "Car", "This is a ball");
+
+        List<Integer> integers = new ArrayList<>();
+        integers.add(1);
+        integers.add(2);
+        integers.add(3);
+        integers.add(4);
+
+        MySQLAdsDao aDao = new MySQLAdsDao(new Config());
+        aDao.categories(integers, ad);
+
+
     }
 }

@@ -21,14 +21,29 @@
                 <input id="title" name="title" class="form-control" type="text" value="${title}">
             </div>
             <div class="form-group">
-                <select name="category-select">
-                    <option value="For Sale">Volvo</option>
-                    <option value="Electronics">Saab</option>
-                    <option value="Sports Equipment">Opel</option>
-                    <option value="audi">Audi</option>
-                </select>
-                <label for="category">Category</label>
-                <input id="category" name="category" class="form-control" type="text">
+                <label>Category</label>
+                    <br>
+                <p>(Please select at least one category)</p>
+                    <input name="1" value="1" type="checkbox"> For Sale
+                    <input name="1" value="0" type="hidden">
+                    <input name="2" value="1" type="checkbox"> Electronics
+                    <input name="2" value="0" type="checkbox">
+                    <input name="3" value="1" type="checkbox"> Sports Equipment
+                    <input name="3" value="0" type="checkbox">
+                    <input name="4" value="1" type="checkbox"> Outdoors
+                    <input name="4" value="0" type="checkbox">
+                    <input name="5" value="1" type="checkbox"> Vehicles
+                    <input name="5" value="0" type="checkbox">
+                    <input name="6" value="1" type="checkbox"> Free
+                    <input name="6" value="0" type="checkbox">
+                    <br>
+                <%--<select name="category-select">--%>
+                    <%--<option value="For Sale">For Sale</option>--%>
+                    <%--<option value="Electronics">Electronics</option>--%>
+                    <%--<option value="Sports Equipment">Opel</option>--%>
+                    <%--<option value="audi">Audi</option>--%>
+                <%--</select>--%>
+                <%--<input id="category" name="category" class="form-control" type="checkbox">--%>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>

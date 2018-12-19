@@ -23,7 +23,6 @@ public class IndivAdServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String addLookingFor = request.getParameter("param1");
-        System.out.println(addLookingFor);
         Ad thisAdd = DaoFactory.getAdsDao().findAdd(addLookingFor);
         HttpSession session = request.getSession();
         session.setAttribute("thisAdd", thisAdd);

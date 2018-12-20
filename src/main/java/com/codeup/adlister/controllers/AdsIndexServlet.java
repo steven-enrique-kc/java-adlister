@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
 public class AdsIndexServlet extends HttpServlet {
@@ -21,7 +22,10 @@ public class AdsIndexServlet extends HttpServlet {
         Ad prevAd = DaoFactory.getAdsDao().findAdd(oldTitle);
         Ad newAd = new Ad(prevAd.getId(), prevAd.getUserId(), title,description);
         Ad ad = DaoFactory.getAdsDao().editAd(newAd);
-        req.getRequestDispatcher("/WEB-INF/ads/index.jsp").forward(req, resp);
+        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(ad.getUserId());
+        userAds.add(ad);
+        req.getSession().setAttribute("userAds", userAds);
+        resp.sendRedirect("/ads");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

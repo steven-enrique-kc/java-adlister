@@ -1,6 +1,6 @@
 USE adlister_db;
 
-
+Drop TABLE if exists pictures;
 DROP TABLE IF EXISTS ads_categories;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS ads;
@@ -39,4 +39,10 @@ CREATE TABLE ads_categories (
     category_id INT UNSIGNED NOT NULL,
     FOREIGN KEY (ad_id) REFERENCES ads(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+create table pictures(
+    ad_id INT UNSIGNED NOT NULL,
+    link text,
+    FOREIGN KEY  (ad_id) references ads(id)
 );

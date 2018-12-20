@@ -28,15 +28,15 @@
                     <input name="1" value="1" type="checkbox"> For Sale
                     <input name="1" value="0" type="hidden">
                     <input name="2" value="1" type="checkbox"> Electronics
-                    <input name="2" value="0" type="checkbox">
+                    <input name="2" value="0" type="hidden">
                     <input name="3" value="1" type="checkbox"> Sports Equipment
-                    <input name="3" value="0" type="checkbox">
+                    <input name="3" value="0" type="hidden">
                     <input name="4" value="1" type="checkbox"> Outdoors
-                    <input name="4" value="0" type="checkbox">
+                    <input name="4" value="0" type="hidden">
                     <input name="5" value="1" type="checkbox"> Vehicles
-                    <input name="5" value="0" type="checkbox">
+                    <input name="5" value="0" type="hidden">
                     <input name="6" value="1" type="checkbox"> Free
-                    <input name="6" value="0" type="checkbox">
+                    <input name="6" value="0" type="hidden">
                     <br>
                 <%--<select name="category-select">--%>
                     <%--<option value="For Sale">For Sale</option>--%>

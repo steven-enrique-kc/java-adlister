@@ -17,4 +17,8 @@ public interface Ads {
     List<Ad> getUsersAds(long id);
 
     Ad editAd(Ad ad);
+
+    List<Integer> categories(List<Integer> categories, Ad ad);
+
+    List<String> getCatagories(Ad ad);
 }

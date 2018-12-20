@@ -67,7 +67,6 @@ public class CreateAdServlet extends HttpServlet {
             return;
         }
 
-        categories.add(7);
         if (request.getParameter("1").equals("1")) {
             categories.add(1);
         }

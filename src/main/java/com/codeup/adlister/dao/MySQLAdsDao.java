@@ -173,13 +173,11 @@ public class MySQLAdsDao implements Ads {
         List<Integer> result = new ArrayList<>();
         MySQLAdsDao dao = new MySQLAdsDao(new Config());
         try {
-            for(Integer catagory : categories) {
+            for(int i = 0; i < categories.size(); i++) {
                 String insertQuery = "INSERT INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
                 PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-                System.out.println(dao.findThisAdd(ad.getTitle()));
                 stmt.setLong(1, dao.findThisAdd(ad.getTitle()));
-                System.out.println(categories.indexOf(catagory));
-                stmt.setInt(2, categories.indexOf(catagory));
+                stmt.setInt(2, categories.get(i));
                 stmt.executeUpdate();
                 ResultSet rs = stmt.getGeneratedKeys();
                 while (rs.next()) {

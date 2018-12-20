@@ -68,6 +68,21 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    public Ad deleteAd(Ad ad) {
+        PreparedStatement stmt = null;
+        try {
+            String editQuery = "DELETE ads_categories.*, ads.* FROM ads_categories LEFT JOIN ads ON ads_categories.ad_id = ads.id WHERE ads_categories.ad_id = ?";
+            stmt = connection.prepareStatement(editQuery);
+            stmt.setLong(1, ad.getId());
+
+
+            stmt.executeUpdate();
+            return ad;
+        } catch(SQLException e) {
+            throw new RuntimeException("Error in deleting ad.", e);
+        }
+    }
+
     public Ad editAd(Ad ad) {
 
         PreparedStatement stmt = null;
@@ -190,49 +205,5 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error creating a new ad.", e);
         }
 
-    }
-
-    public List<Integer> addPicture(String Link, Ad ad){
-        List<Integer> result = new ArrayList<>();
-        try {
-            String insertQuery = "INSERT INTO pictures(ad_id, link) VALUES (?, ?)";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-            stmt.setLong(1, ad.getId());
-            stmt.setString(2, Link);
-            stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            while (rs.next()){
-                result.add(rs.getInt(1));
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error creating a new ad.", e);
-        }
-    }
-
-    public List<String> getPicture(Ad ad){
-        List<String> result = new ArrayList<>();
-        try {
-            String insertQuery = "SELECT link from pictures where ad_id = ?";
-            PreparedStatement stmt = connection.prepareStatement(insertQuery);
-            stmt.setLong(1, ad.getId());
-            System.out.println(stmt);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
-                result.add(rs.getString(1));
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error getting picture.", e);
-        }
-    }
-
-    public static void main(String[] args) {
-        String link = "https://zdnet2.cbsistatic.com/hub/i/r/2014/08/26/a8f31faf-2cf1-11e4-9e6a-00505685119a/resize/770xauto/ec806b03de3d8bdd33b8948cdbf00d68/java-logo.jpg";
-        MySQLAdsDao dao = new MySQLAdsDao(new Config());
-        Ad ad = dao.findAdd("Bowling Ball");
-        List<Integer> picId = dao.addPicture(link,ad);
-        List<String> links = dao.getPicture(ad);
-        System.out.println(links.size());
     }
 }

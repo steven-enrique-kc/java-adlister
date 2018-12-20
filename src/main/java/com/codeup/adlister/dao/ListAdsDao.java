@@ -31,6 +31,11 @@ public class ListAdsDao implements Ads {
     }
 
     @Override
+    public Ad deleteAd(Ad ad) {
+        return null;
+    }
+
+    @Override
     public List<Integer> categories(List<Integer> categories, Ad ad) {
         List<Integer> result = new ArrayList<>();
         if (ads == null) {

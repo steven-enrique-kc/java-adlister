@@ -38,7 +38,13 @@
             <input type="hidden" name="title" value="${param.title}">
             <input type="submit" name="param1" value="Edit Ad">
             <A HREF="javascript:document.submitForm.submit()"></A>
-        </form>    </c:if>
+        </form>
+
+        <form name="submitForm" method="post" action="/deletead">
+            <input type="hidden" name="title" value="${param.title}">
+            <input type="submit" name="param1" value="Delete Ad">
+            <A HREF="javascript:document.submitForm.submit()"></A>
+        </form></c:if>
 
 
 </div>

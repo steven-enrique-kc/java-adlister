@@ -21,4 +21,6 @@ public interface Ads {
     List<Integer> categories(List<Integer> categories, Ad ad);
 
     List<String> getCatagories(Ad ad);
+
+    Ad deleteAd(Ad ad);
 }

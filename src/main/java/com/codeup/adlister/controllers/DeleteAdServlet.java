@@ -16,16 +16,16 @@ import java.util.List;
 public class DeleteAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
-//        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
-//        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
+        Ad deleteAd = DaoFactory.getAdsDao().deleteAd(ad);
+        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
 //        int indexOfDeletedAd = userAds.indexOf(ad);
 //        userAds.remove(indexOfDeletedAd);
-//        request.getSession().setAttribute("userAds", userAds);
+        request.getSession().setAttribute("userAds", userAds);
 
-        Ad deleteAd = DaoFactory.getAdsDao().deleteAd(ad);
 
-        response.sendRedirect("/ads");
+        response.sendRedirect("/profile");
 
     }
 

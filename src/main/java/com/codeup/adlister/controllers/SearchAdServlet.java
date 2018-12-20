@@ -15,6 +15,7 @@ public class SearchAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchTerm = request.getParameter("search");
 		request.setAttribute("ads", DaoFactory.getAdsDao().searchAds(searchTerm));
+//		request.setAttribute("categories", DaoFactory.);
 		request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 

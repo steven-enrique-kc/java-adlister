@@ -145,7 +145,7 @@ public class MySQLAdsDao implements Ads {
             ResultSet rs = stmt.executeQuery();
             System.out.println(rs);
             rs.next();
-            answer = rs.getInt(1);
+            answer = rs.getInt("id");
             return answer;
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving this ad.", e);
@@ -171,16 +171,17 @@ public class MySQLAdsDao implements Ads {
 
     public List<Integer> categories(List<Integer> categories, Ad ad) {
         List<Integer> result = new ArrayList<>();
+        MySQLAdsDao dao = new MySQLAdsDao(new Config());
         try {
             for(Integer catagory : categories) {
-                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
+                String insertQuery = "INSERT INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
                 PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-
-                stmt.setLong(1, findThisAdd(ad.getTitle()));
+                System.out.println(dao.findThisAdd(ad.getTitle()));
+                stmt.setLong(1, dao.findThisAdd(ad.getTitle()));
+                System.out.println(categories.indexOf(catagory));
                 stmt.setInt(2, categories.indexOf(catagory));
                 stmt.executeUpdate();
                 ResultSet rs = stmt.getGeneratedKeys();
-
                 while (rs.next()) {
                     result.add(rs.getInt(1));
                 }

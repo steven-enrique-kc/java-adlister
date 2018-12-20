@@ -18,6 +18,11 @@ public class EditAdServlet extends HttpServlet {
         String title = request.getParameter("title");
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
         request.setAttribute("Ad", ad);
+        String description = request.getParameter("description");
+        String oldTitle = request.getParameter("oldName");
+        Ad prevAd = DaoFactory.getAdsDao().findAdd(oldTitle);
+        Ad newAd = new Ad(prevAd.getId(), prevAd.getUserId(), title,description);
+        Ad editAd = DaoFactory.getAdsDao().editAd(newAd);
 //        User user = (User) request.getSession().getAttribute("user");
 //        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
 //        if (request.getParameter("title").equals("")){
@@ -50,7 +55,7 @@ public class EditAdServlet extends HttpServlet {
 //        );
 //        DaoFactory.getAdsDao().editAd(ad);
 //        response.sendRedirect("/profile");
-        request.getRequestDispatcher("/WEB-INF/ads/editad.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/ads/profile.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

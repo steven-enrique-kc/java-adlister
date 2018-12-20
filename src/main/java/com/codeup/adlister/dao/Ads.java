@@ -22,6 +22,7 @@ public interface Ads {
 
     List<String> getCatagories(Ad ad);
 
+    Ad deleteAd(Ad ad);
     List<Integer> addPicture(String Link, Ad ad);
 
     List<String> getPicture(Ad ad);

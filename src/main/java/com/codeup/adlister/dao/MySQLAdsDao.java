@@ -122,6 +122,7 @@ public class MySQLAdsDao implements Ads {
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?");
+//            SELECT ads.*, categories.* FROM ads, categories WHERE ads.title LIKE ? OR ads.description LIKE ? OR categories.category LIKE ?
             stmt.setString(1, '%' + searchTerm + '%');
             stmt.setString(2, '%' + searchTerm + '%');
             ResultSet rs = stmt.executeQuery();
@@ -160,7 +161,7 @@ public class MySQLAdsDao implements Ads {
             ResultSet rs = stmt.executeQuery();
             System.out.println(rs);
             rs.next();
-            answer = rs.getInt(1);
+            answer = rs.getInt("id");
             return answer;
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving this ad.", e);
@@ -186,16 +187,15 @@ public class MySQLAdsDao implements Ads {
 
     public List<Integer> categories(List<Integer> categories, Ad ad) {
         List<Integer> result = new ArrayList<>();
+        MySQLAdsDao dao = new MySQLAdsDao(new Config());
         try {
-            for(Integer catagory : categories) {
-                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
+            for(int i = 0; i < categories.size(); i++) {
+                String insertQuery = "INSERT INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
                 PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-
-                stmt.setLong(1, findThisAdd(ad.getTitle()));
-                stmt.setInt(2, categories.indexOf(catagory));
+                stmt.setLong(1, dao.findThisAdd(ad.getTitle()));
+                stmt.setInt(2, categories.get(i));
                 stmt.executeUpdate();
                 ResultSet rs = stmt.getGeneratedKeys();
-
                 while (rs.next()) {
                     result.add(rs.getInt(1));
                 }

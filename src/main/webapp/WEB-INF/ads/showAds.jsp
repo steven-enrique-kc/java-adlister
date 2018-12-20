@@ -17,6 +17,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
     <jsp:include page="/WEB-INF/partials/adContent.jsp">
+        <jsp:param name="picture" value="${picture}" />
         <jsp:param name="categories" value="${catagories}" />
         <jsp:param name="title" value="${thisAdd.title}" />
         <jsp:param name="description" value="${thisAdd.description}" />

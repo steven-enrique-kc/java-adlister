@@ -29,6 +29,10 @@ public class IndivAdServlet extends HttpServlet {
         Ad thisAdd = DaoFactory.getAdsDao().findAdd(addLookingFor);
         List<String> catagories = DaoFactory.getAdsDao().getCatagories(thisAdd);
         HttpSession session = request.getSession();
+        if (DaoFactory.getAdsDao().getPicture(thisAdd).size() != 0){
+            String picLink = DaoFactory.getAdsDao().getPicture(thisAdd).get(0);
+            request.setAttribute("picture", picLink);
+        }
         session.setAttribute("thisAdd", thisAdd);
         session.setAttribute("catagories", catagories);
         request.getRequestDispatcher("/WEB-INF/ads/showAds.jsp").forward(request, response);

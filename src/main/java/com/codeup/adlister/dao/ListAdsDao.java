@@ -49,6 +49,16 @@ public class ListAdsDao implements Ads {
         return null;
     }
 
+    @Override
+    public List<Integer> addPicture(String Link, Ad ad) {
+        return null;
+    }
+
+    @Override
+    public List<String> getPicture(Ad ad) {
+        return null;
+    }
+
     public Long insert(Ad ad) {
         // make sure we have ads
         if (ads == null) {

@@ -67,18 +67,23 @@ public class CreateAdServlet extends HttpServlet {
             return;
         }
 
-
+        categories.add(7);
         if (request.getParameter("1").equals("1")) {
             categories.add(1);
-        } if (request.getParameter("2").equals("1")) {
+        }
+        if (request.getParameter("2").equals("1")) {
             categories.add(2);
-        } if (request.getParameter("3").equals("1")) {
+        }
+        if (request.getParameter("3").equals("1")) {
             categories.add(3);
-        } if (request.getParameter("4").equals("1")) {
+        }
+        if (request.getParameter("4").equals("1")) {
             categories.add(4);
-        } if (request.getParameter("5").equals("1")) {
+        }
+        if (request.getParameter("5").equals("1")) {
             categories.add(5);
-        } if (request.getParameter("6").equals("1")) {
+        }
+        if (request.getParameter("6").equals("1")) {
             categories.add(6);
         }
 
@@ -90,7 +95,7 @@ public class CreateAdServlet extends HttpServlet {
         );
         DaoFactory.getAdsDao().insert(ad);
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
-
+        DaoFactory.getAdsDao().categories(categories, ad);
         request.getSession().setAttribute("userAds", userAds);
 
         response.sendRedirect("/ads");

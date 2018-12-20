@@ -68,33 +68,6 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-
-    public List<Integer> categories(List<Integer> categories, Ad ad) {
-        List<Integer> result = new ArrayList<>();
-
-        try {
-            for(int i = 0; i < categories.size(); i ++) {
-                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
-                PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-
-                stmt.setLong(1, findThisAdd(ad.getTitle()));
-                stmt.setInt(2, categories.indexOf(i));
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
-
-                while (rs.next()) {
-                result.add(rs.getInt(1));
-                }
-            }
-            return result;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error creating a new ad.", e);
-        }
-
-    }
-
-
-
     public Ad editAd(Ad ad) {
 
         PreparedStatement stmt = null;
@@ -179,4 +152,43 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+    public List<String> getCatagories(Ad ad) {
+        List <String> result = new ArrayList<>();
+        PreparedStatement stmt = null;
+        try {
+            String insertQuery = "SELECT * FROM categories WHERE id IN ( SELECT category_id FROM ads_categories WHERE ad_id = ?)";
+            stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, ad.getId());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                result.add(rs.getString("category"));
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error retrieving user\'s ads.", e);
+        }
+    }
+
+    public List<Integer> categories(List<Integer> categories, Ad ad) {
+        List<Integer> result = new ArrayList<>();
+        try {
+            for(Integer catagory : categories) {
+                String insertQuery = "INSERT IGNORE INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
+                PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+
+                stmt.setLong(1, findThisAdd(ad.getTitle()));
+                stmt.setInt(2, categories.indexOf(catagory));
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+
+                while (rs.next()) {
+                    result.add(rs.getInt(1));
+                }
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+
+    }
 }

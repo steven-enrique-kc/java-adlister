@@ -1,7 +1,7 @@
 USE adlister_db;
 
 
-INSERT INTO users (username, email, password)
+INSERT INTO users (username, users.email, users.password)
 VALUES ('jim', 'jim@email.com', '$2a$12$R.nDWNBzDsNWxhqsiWIDGu54isnuVqb7NFcKZqZi4sCr3znlk7pmu'),
        ('mike', 'mike@email.com', '$2a$12$cMnbUEUwi.fy814v8p7lHuq5kUcWYtpee97JV1WD531nbjH8jrvaO');
 
@@ -21,6 +21,9 @@ VALUES ('For Sale'),
        ('Outdoors'),
        ('Vehicles'),
        ('Free Stuff');
+
+       INSERT INTO categories (category)
+VALUES ("nothing");
 
 INSERT INTO ads_categories (ad_id, category_id)
 VALUES (1, 1),

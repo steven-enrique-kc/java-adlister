@@ -12,14 +12,17 @@
 
         </c:choose>
 
-    <h1>User ID : ${sessionScope.user.id}</h1>
-    <h1>Ad user ID : ${param.userId}</h1>
-    <h1>Ad ID : ${sessionScope.thisAdd.id}</h1>
+    <%--<h1>User ID : ${sessionScope.user.id}</h1>--%>
+    <%--<h1>Ad user ID : ${param.userId}</h1>--%>
+    <%--<h1>Ad ID : ${sessionScope.thisAdd.id}</h1>--%>
 
 
     <div class="card-body">
         <h5 class="card-title">${param.title}</h5>
         <p class="card-text">${param.description}</p>
+        <c:forEach var="catagory" items="${param.categories}">
+            <p>Categories: ${catagory}</p>
+        </c:forEach>
         <form action="/ads" method="get">
             <input type="submit" value="Return to Ads"
                    name="Submit" id="frm1_submit" />
@@ -31,9 +34,10 @@
     </div>
 
     <c:if test="${sessionScope.user.id == param.userId}">
-        <form name="submitForm${sessionScope.thisAdd.id}" method="POST" action="/editad">
+        <form name="submitForm" method="post" action="/editad">
+            <input type="hidden" name="title" value="${param.title}">
             <input type="submit" name="param1" value="Edit Ad">
-            <A HREF="javascript:document.submitForm${sessionScope.thisAdd.id}.submit()">What is this</A>
+            <A HREF="javascript:document.submitForm.submit()"></A>
         </form>    </c:if>
 
 

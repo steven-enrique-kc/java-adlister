@@ -26,4 +26,6 @@ public interface Ads {
     List<Integer> addPicture(String Link, Ad ad);
 
     List<String> getPicture(Ad ad);
+
+    List<Integer> editCategories(List<Integer> categories, Ad ad);
 }

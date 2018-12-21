@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListAdsDao implements Ads {
+    @Override
+    public List<Integer> editCategories(List<Integer> categories, Ad ad) {
+        return null;
+    }
+
     private List<Ad> ads;
 
     public List<Ad> all() {

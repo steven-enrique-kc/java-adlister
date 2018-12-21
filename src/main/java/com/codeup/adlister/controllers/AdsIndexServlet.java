@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "controllers.AdsIndexServlet", urlPatterns = "/ads")
@@ -23,25 +24,40 @@ public class AdsIndexServlet extends HttpServlet {
         Ad prevAd = DaoFactory.getAdsDao().findAdd(oldTitle);
         Ad newAd = new Ad(prevAd.getId(), prevAd.getUserId(), title,description);
         Ad ad = DaoFactory.getAdsDao().editAd(newAd);
-//        List<String> categories = DaoFactory.getAdsDao().getCatagories(ad);
-//        if (req.getParameter("1").equals("1")) {
-//            categories.add(1);
-//        }
-//        if (req.getParameter("2").equals("1")) {
-//            categories.add(2);
-//        }
-//        if (req.getParameter("3").equals("1")) {
-//            categories.add(3);
-//        }
-//        if (req.getParameter("4").equals("1")) {
-//            categories.add(4);
-//        }
-//        if (req.getParameter("5").equals("1")) {
-//            categories.add(5);
-//        }
-//        if (req.getParameter("6").equals("1")) {
-//            categories.add(6);
-//        }
+        List<Integer> categories = new ArrayList<>();
+        List<Integer> toDelete = new ArrayList<>();
+        if (req.getParameter("1").equals("1")) {
+            categories.add(1);
+        }else {
+            toDelete.add(1);
+        }
+        if (req.getParameter("2").equals("1")) {
+            categories.add(2);
+        }else {
+            toDelete.add(2);
+        }
+        if (req.getParameter("3").equals("1")) {
+            categories.add(3);
+        }else {
+            toDelete.add(3);
+        }
+        if (req.getParameter("4").equals("1")) {
+            categories.add(4);
+        }else {
+            toDelete.add(4);
+        }
+        if (req.getParameter("5").equals("1")) {
+            categories.add(5);
+        }else {
+            toDelete.add(5);
+        }
+        if (req.getParameter("6").equals("1")) {
+            categories.add(6);
+        }else {
+            toDelete.add(6);
+        }
+        DaoFactory.getAdsDao().categories(categories, ad);
+        DaoFactory.getAdsDao().editCategories(toDelete, ad);
 //        grabs the updated ads assigned to a particular user, and reassignes the variable to display for a user
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(ad.getUserId());
         userAds.add(ad);

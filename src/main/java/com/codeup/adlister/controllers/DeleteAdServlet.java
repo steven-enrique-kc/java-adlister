@@ -23,8 +23,6 @@ public class DeleteAdServlet extends HttpServlet {
 //        int indexOfDeletedAd = userAds.indexOf(ad);
 //        userAds.remove(indexOfDeletedAd);
         request.getSession().setAttribute("userAds", userAds);
-
-
         response.sendRedirect("/profile");
 
     }

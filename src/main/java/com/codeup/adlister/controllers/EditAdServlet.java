@@ -17,45 +17,11 @@ public class EditAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
+        List<String> categories = DaoFactory.getAdsDao().getCatagories(ad);
+        System.out.println(categories);
+        request.setAttribute("categories",categories);
         request.setAttribute("Ad", ad);
-        String description = request.getParameter("description");
-        String oldTitle = request.getParameter("oldName");
-        Ad prevAd = DaoFactory.getAdsDao().findAdd(oldTitle);
-        Ad newAd = new Ad(prevAd.getId(), prevAd.getUserId(), title,description);
-        Ad editAd = DaoFactory.getAdsDao().editAd(newAd);
-//        User user = (User) request.getSession().getAttribute("user");
-//        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
-//        if (request.getParameter("title").equals("")){
-//            String description = request.getParameter("description");
-//            request.setAttribute("description", description);
-//            request.setAttribute("allValues", true);
-//            request.getRequestDispatcher("/WEB-INF/ads/editad.jsp").forward(request, response);
-//            return;
-//        }
-//        if (request.getParameter("description").equals("")){
-//            String title = request.getParameter("title");
-//            request.setAttribute("title", title);
-//            request.setAttribute("allValues", true);
-//            request.getRequestDispatcher("/WEB-INF/ads/editad.jsp").forward(request, response);
-//            return;
-//        }
-//        Try to make the check where title isnt reused
-//        if (DaoFactory.getAdsDao().findAdd(request.getParameter("title")) != null){
-//            String description = request.getParameter("description");
-//            request.setAttribute("description", description);
-//            request.setAttribute("duplicateTitle", true);
-//            request.getRequestDispatcher("/WEB-INF/ads/create.jsp").forward(request, response);
-//            return;
-//        }
-//        String addLookingFor = request.getParameter("title");
-//        Ad ad = new Ad(
-//                user.getId(),
-//                request.getParameter("title"),
-//                request.getParameter("description")
-//        );
-//        DaoFactory.getAdsDao().editAd(ad);
-//        response.sendRedirect("/profile");
-        request.getRequestDispatcher("/WEB-INF/ads/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/ads/editad.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

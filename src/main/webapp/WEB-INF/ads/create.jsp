@@ -38,13 +38,6 @@
                     <input name="6" value="1" type="checkbox"> Free
                     <input name="6" value="0" type="hidden">
                     <br>
-                <%--<select name="category-select">--%>
-                    <%--<option value="For Sale">For Sale</option>--%>
-                    <%--<option value="Electronics">Electronics</option>--%>
-                    <%--<option value="Sports Equipment">Opel</option>--%>
-                    <%--<option value="audi">Audi</option>--%>
-                <%--</select>--%>
-                <%--<input id="category" name="category" class="form-control" type="checkbox">--%>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>

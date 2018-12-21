@@ -20,6 +20,7 @@ import static com.mysql.cj.core.MysqlType.JSON;
 public class AdPicServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        gets the title of ad from indivual add form and sends it to add picture form
         String title = req.getParameter("title");
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
         req.setAttribute("ad", ad);

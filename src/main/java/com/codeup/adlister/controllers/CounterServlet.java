@@ -21,15 +21,18 @@ public class CounterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+//        grabs the link and Ad and links them together
         String title = req.getParameter("title");
         String pic = req.getParameter("picture");
-        Ad ad = DaoFactory.getAdsDao().findAdd(title);
-        List<Integer> catagory = DaoFactory.getAdsDao().addPicture(pic, ad);
-        if (catagory.size() == 0){
+
+//        bypasses link if user did not input a picture
+        if (pic.equals("")){
             resp.sendRedirect("/ads");
             return;
         }
+        Ad ad = DaoFactory.getAdsDao().findAdd(title);
+        List<Integer> catagory = DaoFactory.getAdsDao().addPicture(pic, ad);
         resp.sendRedirect("/ads");
 
         }

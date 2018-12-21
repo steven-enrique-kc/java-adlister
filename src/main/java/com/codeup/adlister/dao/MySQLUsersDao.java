@@ -23,7 +23,7 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-
+//    pulls a user based off there username
     @Override
     public User findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
@@ -36,6 +36,7 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+//    inserts a new user
     @Override
     public Long insert(User user) {
         String query = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
@@ -53,6 +54,7 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+//    edits a user
     @Override
     public User editUser(User user) {
         PreparedStatement stmt = null;
@@ -71,6 +73,7 @@ public class MySQLUsersDao implements Users {
         }
     }
 
+//    extracts a user used in a function
     private User extractUser(ResultSet rs) throws SQLException {
         if (! rs.next()) {
             return null;
@@ -81,11 +84,5 @@ public class MySQLUsersDao implements Users {
             rs.getString("email"),
             rs.getString("password")
         );
-
     }
-
-    public static void main(String[] args) {
-
-    }
-
 }

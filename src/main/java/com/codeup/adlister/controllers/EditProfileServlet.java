@@ -17,16 +17,22 @@ import static com.codeup.adlister.controllers.RegisterServlet.meetsRequirement;
 @WebServlet(name = "controllers.EditProfileServlet", urlPatterns = "/editprofile")
 public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        grabs entered info for creating a new user
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
+//        checks if user has left email or password are empty
         boolean inputHasErrors = username.isEmpty()
                 || email.isEmpty()
-                || password.isEmpty()
-                || (! password.equals(passwordConfirmation));
+                || password.isEmpty();
 
+        if (inputHasErrors) {
+            response.sendRedirect("/editprofile");
+            return;
+        }
+//        makes sure password meets requirement
         if (!RegisterServlet.meetsRequirement(password)){
             request.setAttribute("username", request.getParameter("username"));
             request.setAttribute("email", request.getParameter("email"));
@@ -35,6 +41,7 @@ public class EditProfileServlet extends HttpServlet {
             return;
         }
 
+//        ensures proper formatting for entered email address
         if (!RegisterServlet.isValidEmailAddress(email)){
             request.setAttribute("username", request.getParameter("username"));
             request.setAttribute("password", request.getParameter("password"));
@@ -43,11 +50,7 @@ public class EditProfileServlet extends HttpServlet {
             return;
         }
 
-        if (inputHasErrors) {
-            response.sendRedirect("/editprofile");
-            return;
-        }
-
+//        ensures password and confirmation match
         if ((! password.equals(passwordConfirmation))) {
             request.setAttribute("username", request.getParameter("username"));
             request.setAttribute("email", request.getParameter("email"));
@@ -63,8 +66,9 @@ public class EditProfileServlet extends HttpServlet {
         user.setUsername(username);
         user.setPassword(password);
 
-
+//        edits the user in the database
         DaoFactory.getUsersDao().editUser(user);
+//        assigns a cookie that updates all info related to user
         request.getSession().setAttribute("user", user);
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
 

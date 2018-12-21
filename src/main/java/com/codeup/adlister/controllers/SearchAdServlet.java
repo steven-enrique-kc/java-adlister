@@ -16,16 +16,15 @@ import java.util.List;
 public class SearchAdServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String searchTerm = request.getParameter("search");
-		request.setAttribute("ads", DaoFactory.getAdsDao().searchAds(searchTerm));
-//		request.setAttribute("categories", DaoFactory.);
 		request.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(request, response);
     }
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//    	search through ad titles and description and catagory based on inputed search term
 		String searchTerm = req.getParameter("search");
 		List<Ad> results = DaoFactory.getAdsDao().searchAds(searchTerm);
+//		if no results, sends boolean back to jsp
 		if (results.size() == 0){
 			req.setAttribute("noResult", true);
 			req.getRequestDispatcher("/WEB-INF/ads/search.jsp").forward(req, resp);

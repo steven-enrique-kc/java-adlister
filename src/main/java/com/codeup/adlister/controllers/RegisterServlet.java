@@ -41,36 +41,30 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
+//        grabs the inputed user info for potiential site user
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
 
-        // validate input
+        // checks wether useername already exists
         boolean duplicateUsername = false;
         if (DaoFactory.getUsersDao().findByUsername(username) != null){
             duplicateUsername = true;
         }
 
+        if (duplicateUsername){
+            request.setAttribute("password", request.getParameter("password"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("hasDuplicate", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        }
+
+//        checks if any fields are mpty
         boolean inputHasErrors = username.isEmpty()
             || email.isEmpty()
             || password.isEmpty();
-
-        if (!meetsRequirement(password)){
-            request.setAttribute("username", request.getParameter("username"));
-            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("passwordNoMatch", true);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-            return;
-        }
-
-        if (!isValidEmailAddress(email)){
-            request.setAttribute("username", request.getParameter("username"));
-            request.setAttribute("password", request.getParameter("password"));
-            request.setAttribute("notFormatEmail", true);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-            return;
-        }
 
         if (inputHasErrors) {
             request.setAttribute("username", request.getParameter("username"));
@@ -81,6 +75,25 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+//        checks if password meets requirements
+        if (!meetsRequirement(password)){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("email", request.getParameter("email"));
+            request.setAttribute("passwordNoMatch", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        }
+
+//        checks if valid email format
+        if (!isValidEmailAddress(email)){
+            request.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("password", request.getParameter("password"));
+            request.setAttribute("notFormatEmail", true);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            return;
+        }
+
+//        checks if password marches confirmation
         if ((! password.equals(passwordConfirmation))) {
             request.setAttribute("username", request.getParameter("username"));
             request.setAttribute("email", request.getParameter("email"));
@@ -89,14 +102,6 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        if (duplicateUsername){
-            request.setAttribute("password", request.getParameter("password"));
-            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("hasDuplicate", true);
-            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-//            response.sendRedirect("/register");
-            return;
-        }
 
         // create and save a new user
         request.removeAttribute("hasDuplicate");

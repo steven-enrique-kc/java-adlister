@@ -73,9 +73,9 @@ public class MySQLAdsDao implements Ads {
         try {
             String editQuery = "DELETE ads_categories.*, ads.* FROM ads_categories LEFT JOIN ads ON ads_categories.ad_id = ads.id WHERE ads_categories.ad_id = ?";
             stmt = connection.prepareStatement(editQuery);
+            System.out.println(ad.getId());
             stmt.setLong(1, ad.getId());
-
-
+            System.out.println(stmt);
             stmt.executeUpdate();
             return ad;
         } catch (SQLException e) {
@@ -121,16 +121,19 @@ public class MySQLAdsDao implements Ads {
     public List<Ad> searchAds(String searchTerm) {
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ? OR description LIKE ?");
+            stmt = connection.prepareStatement("SELECT * FROM ads WHERE title LIKE ? OR description LIKE ? OR " +
+                    "id in (SELECT ad_id from ads_categories where category_id in (SELECT id from categories where category like ?))");
 //            SELECT ads.*, categories.* FROM ads, categories WHERE ads.title LIKE ? OR ads.description LIKE ? OR categories.category LIKE ?
             stmt.setString(1, '%' + searchTerm + '%');
             stmt.setString(2, '%' + searchTerm + '%');
+            stmt.setString(3, '%' + searchTerm + '%');
             ResultSet rs = stmt.executeQuery();
             return createAdsFromResults(rs);
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving requested ads.", e);
         }
     }
+
 
     @Override
     public Ad findAdd(String title) {
@@ -231,7 +234,6 @@ public class MySQLAdsDao implements Ads {
             String insertQuery = "SELECT link from pictures where ad_id = ?";
             PreparedStatement stmt = connection.prepareStatement(insertQuery);
             stmt.setLong(1, ad.getId());
-            System.out.println(stmt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 result.add(rs.getString(1));

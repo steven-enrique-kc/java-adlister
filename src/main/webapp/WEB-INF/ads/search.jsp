@@ -11,13 +11,17 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
 	<h1>Search for Ads</h1>
-	<form>
+	<form action="/ads/search" method="post">
 		<div class="form-group">
 			<label for="search">Search</label>
 			<input id="search" name="search" class="form-control" type="text">
 		</div>
 		<input type="submit" class="btn btn-block btn-primary">
 	</form>
+	<c:if test="${noResult != null}">
+		<p style="color: red">Sorry, no results found...</p>
+	</c:if>
+
 	<c:forEach var="ad" items="${ads}">
 		<div class="col-md-6">
 			<form name="submitForm${ad.id}" method="POST" action="/ads/indiv">

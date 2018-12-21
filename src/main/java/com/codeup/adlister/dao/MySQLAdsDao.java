@@ -15,9 +15,9 @@ public class MySQLAdsDao implements Ads {
         try {
             DriverManager.registerDriver(new Driver());
             connection = DriverManager.getConnection(
-                config.getUrl(),
-                config.getUser(),
-                config.getPassword()
+                    config.getUrl(),
+                    config.getUser(),
+                    config.getPassword()
             );
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database!", e);
@@ -52,7 +52,7 @@ public class MySQLAdsDao implements Ads {
     @Override
     public Long insert(Ad ad) {
         try {
-            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?);"+
+            String insertQuery = "INSERT INTO ads(user_id, title, description) VALUES (?, ?, ?);" +
                     "";
             PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getUserId());
@@ -78,7 +78,7 @@ public class MySQLAdsDao implements Ads {
 
             stmt.executeUpdate();
             return ad;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Error in deleting ad.", e);
         }
     }
@@ -86,26 +86,26 @@ public class MySQLAdsDao implements Ads {
     public Ad editAd(Ad ad) {
 
         PreparedStatement stmt = null;
-                try {
-                    String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
-                    stmt = connection.prepareStatement(editQuery);
-                            stmt.setString(1, ad.getTitle());
-                            stmt.setString(2, ad.getDescription());
-                            stmt.setLong(3, ad.getId());
+        try {
+            String editQuery = "UPDATE ads SET title = ?, description = ? WHERE id = ?";
+            stmt = connection.prepareStatement(editQuery);
+            stmt.setString(1, ad.getTitle());
+            stmt.setString(2, ad.getDescription());
+            stmt.setLong(3, ad.getId());
 
-                            stmt.executeUpdate();
-                            return ad;
-                } catch(SQLException e) {
-                    throw new RuntimeException("Error in editing ad.", e);
-                }
+            stmt.executeUpdate();
+            return ad;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error in editing ad.", e);
+        }
     }
 
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
-            rs.getLong("id"),
-            rs.getLong("user_id"),
-            rs.getString("title"),
-            rs.getString("description")
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description")
         );
     }
 
@@ -133,7 +133,7 @@ public class MySQLAdsDao implements Ads {
     }
 
     @Override
-    public Ad findAdd(String title){
+    public Ad findAdd(String title) {
         PreparedStatement stmt = null;
         try {
             String prepStat = "SELECT * FROM ads WHERE title = ?";
@@ -151,7 +151,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    public int findThisAdd(String title){
+    public int findThisAdd(String title) {
         int answer = 0;
         PreparedStatement stmt = null;
         try {
@@ -169,14 +169,14 @@ public class MySQLAdsDao implements Ads {
     }
 
     public List<String> getCatagories(Ad ad) {
-        List <String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         PreparedStatement stmt = null;
         try {
             String insertQuery = "SELECT * FROM categories WHERE id IN ( SELECT category_id FROM ads_categories WHERE ad_id = ?)";
             stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
             stmt.setLong(1, ad.getId());
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 result.add(rs.getString("category"));
             }
             return result;
@@ -189,7 +189,7 @@ public class MySQLAdsDao implements Ads {
         List<Integer> result = new ArrayList<>();
         MySQLAdsDao dao = new MySQLAdsDao(new Config());
         try {
-            for(int i = 0; i < categories.size(); i++) {
+            for (int i = 0; i < categories.size(); i++) {
                 String insertQuery = "INSERT INTO ads_categories(ad_id, category_id) VALUES (?, ?)";
                 PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
                 stmt.setLong(1, dao.findThisAdd(ad.getTitle()));
@@ -206,4 +206,41 @@ public class MySQLAdsDao implements Ads {
         }
 
     }
+
+    public List<Integer> addPicture(String Link, Ad ad) {
+        List<Integer> result = new ArrayList<>();
+        try {
+            String insertQuery = "INSERT INTO pictures(ad_id, link) VALUES (?, ?)";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+            stmt.setLong(1, ad.getId());
+            stmt.setString(2, Link);
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                result.add(rs.getInt(1));
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+    }
+
+    public List<String> getPicture(Ad ad) {
+        List<String> result = new ArrayList<>();
+        try {
+            String insertQuery = "SELECT link from pictures where ad_id = ?";
+            PreparedStatement stmt = connection.prepareStatement(insertQuery);
+            stmt.setLong(1, ad.getId());
+            System.out.println(stmt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                result.add(rs.getString(1));
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting picture.", e);
+        }
+
+    }
+
 }

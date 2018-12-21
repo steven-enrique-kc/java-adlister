@@ -219,6 +219,28 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+
+    public List<Integer> editCategories(List<Integer> categories, Ad ad) {
+        List<Integer> result = new ArrayList<>();
+        MySQLAdsDao dao = new MySQLAdsDao(new Config());
+        try {
+            for (int i = 0; i < categories.size(); i++) {
+                String insertQuery = "DELETE FROM ads_categories WHERE ad_id = ? and category_id = ?";
+                PreparedStatement stmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+                stmt.setLong(1, dao.findThisAdd(ad.getTitle()));
+                stmt.setInt(2, categories.get(i));
+                stmt.executeUpdate();
+                ResultSet rs = stmt.getGeneratedKeys();
+                while (rs.next()) {
+                    result.add(rs.getInt(1));
+                }
+            }
+            return result;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error creating a new ad.", e);
+        }
+    }
+
 //    adds a link to a picture for a given ad
     public List<Integer> addPicture(String Link, Ad ad) {
         List<Integer> result = new ArrayList<>();

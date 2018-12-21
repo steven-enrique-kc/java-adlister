@@ -24,6 +24,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    generates all ads from database
     @Override
     public List<Ad> all() {
         PreparedStatement stmt = null;
@@ -35,7 +36,7 @@ public class MySQLAdsDao implements Ads {
             throw new RuntimeException("Error retrieving all ads.", e);
         }
     }
-
+//    finds add based on a users id
     @Override
     public List<Ad> getUsersAds(long id) {
         PreparedStatement stmt = null;
@@ -49,6 +50,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    inserts add into database
     @Override
     public Long insert(Ad ad) {
         try {
@@ -68,6 +70,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    deletes add from the database
     public Ad deleteAd(Ad ad) {
         PreparedStatement stmt = null;
         try {
@@ -83,6 +86,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    edits add already in the database
     public Ad editAd(Ad ad) {
 
         PreparedStatement stmt = null;
@@ -100,6 +104,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    extracts add from the database, for use inside function
     private Ad extractAd(ResultSet rs) throws SQLException {
         return new Ad(
                 rs.getLong("id"),
@@ -109,6 +114,7 @@ public class MySQLAdsDao implements Ads {
         );
     }
 
+//    create the ad inside a function
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
@@ -117,6 +123,7 @@ public class MySQLAdsDao implements Ads {
         return ads;
     }
 
+//    search for an add in the database
     @Override
     public List<Ad> searchAds(String searchTerm) {
         PreparedStatement stmt = null;
@@ -134,7 +141,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-
+//find an add based on a given title
     @Override
     public Ad findAdd(String title) {
         PreparedStatement stmt = null;
@@ -154,6 +161,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    selects the id of an ad
     public int findThisAdd(String title) {
         int answer = 0;
         PreparedStatement stmt = null;
@@ -171,6 +179,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    gets the catagories applicable for a given ad
     public List<String> getCatagories(Ad ad) {
         List<String> result = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -188,6 +197,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    adds cataqgories for a given ad
     public List<Integer> categories(List<Integer> categories, Ad ad) {
         List<Integer> result = new ArrayList<>();
         MySQLAdsDao dao = new MySQLAdsDao(new Config());
@@ -207,9 +217,9 @@ public class MySQLAdsDao implements Ads {
         } catch (SQLException e) {
             throw new RuntimeException("Error creating a new ad.", e);
         }
-
     }
 
+//    adds a link to a picture for a given ad
     public List<Integer> addPicture(String Link, Ad ad) {
         List<Integer> result = new ArrayList<>();
         try {
@@ -228,6 +238,7 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
+//    retrives the picture for a given ad
     public List<String> getPicture(Ad ad) {
         List<String> result = new ArrayList<>();
         try {

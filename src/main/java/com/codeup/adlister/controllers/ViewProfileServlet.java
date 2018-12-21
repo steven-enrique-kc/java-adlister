@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.ViewProfileServlet", urlPatterns = "/profile")
 public class ViewProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        if no user logged in, redirects back to login page, otherwise displays user info
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;

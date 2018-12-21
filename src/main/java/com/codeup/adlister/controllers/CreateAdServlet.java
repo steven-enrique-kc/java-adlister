@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet(name = "controllers.CreateAdServlet", urlPatterns = "/ads/create")
 public class CreateAdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//    keeps user from assessing if not logged in, redirects to login
         if (request.getSession().getAttribute("user") == null) {
             response.sendRedirect("/login");
             return;
@@ -27,14 +27,13 @@ public class CreateAdServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,ServletException {
-
+//    grabs useername of currently logged in user;
         User user = (User) request.getSession().getAttribute("user");
-//        List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
         List<Integer> categories = new ArrayList<>();
 
         String username = (String) request.getSession().getAttribute("username");
 
-
+//        checks if the entered title already exists
         boolean duplicateAdTitle = false;
         List<Ad> ads = DaoFactory.getAdsDao().all();
         for (Ad ad : ads){
@@ -51,7 +50,7 @@ public class CreateAdServlet extends HttpServlet {
             return;
         }
 
-
+//        forces user to enter something for title and description
         if (request.getParameter("title").equals("")){
             String description = request.getParameter("description");
             request.setAttribute("description", description);
@@ -67,6 +66,7 @@ public class CreateAdServlet extends HttpServlet {
             return;
         }
 
+//        check to see if checkboxes for each catagory are checked or not
         if (request.getParameter("1").equals("1")) {
             categories.add(1);
         }
@@ -86,17 +86,20 @@ public class CreateAdServlet extends HttpServlet {
             categories.add(6);
         }
 
-
+//        generates new ad based on user input and ads it to the database
         Ad ad = new Ad(
             user.getId(),
             request.getParameter("title"),
             request.getParameter("description")
         );
         DaoFactory.getAdsDao().insert(ad);
+
+//        ads the newly genearated ad to the cookie storing all ads for this user
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
         DaoFactory.getAdsDao().categories(categories, ad);
         request.getSession().setAttribute("userAds", userAds);
 
+//        redirects back to ads index
         response.sendRedirect("/ads");
 
 

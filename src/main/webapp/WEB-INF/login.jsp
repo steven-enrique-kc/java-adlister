@@ -10,8 +10,13 @@
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container">
         <h1>Please Log In</h1>
+        <%--displays error message if user has incorrect password--%>
+        <c:if test="${incorrectPass != null}">
+            <p style="color: red">password did not match inputted user</p>
+        </c:if>
+        <%--displays error message if no user with that username--%>
         <c:if test="${username != null}">
-            <p style="color: red">Error!!!!</p>
+            <p style="color: red">No user with matching username</p>
         </c:if>
         <form action="/login" method="POST">
             <div class="form-group">

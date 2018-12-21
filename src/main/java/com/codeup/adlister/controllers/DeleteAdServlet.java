@@ -15,19 +15,18 @@ import java.util.List;
 @WebServlet(name = "DeleteAdServlet", urlPatterns = "/deletead")
 public class DeleteAdServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        finds current user and add user is trying to delete
         String title = request.getParameter("title");
         User user = (User) request.getSession().getAttribute("user");
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
-        Ad deleteAd = DaoFactory.getAdsDao().deleteAd(ad);
+
+//        deletes the add
+       DaoFactory.getAdsDao().deleteAd(ad);
+
+//        updates the cookie for current users ad
         List<Ad> userAds = DaoFactory.getAdsDao().getUsersAds(user.getId());
-//        int indexOfDeletedAd = userAds.indexOf(ad);
-//        userAds.remove(indexOfDeletedAd);
         request.getSession().setAttribute("userAds", userAds);
         response.sendRedirect("/profile");
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

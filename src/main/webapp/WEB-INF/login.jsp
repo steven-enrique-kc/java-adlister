@@ -12,11 +12,15 @@
         <h1>Please Log In</h1>
         <%--displays error message if user has incorrect password--%>
         <c:if test="${incorrectPass != null}">
-            <p style="color: red">password did not match inputted user</p>
+            <div class="alert alert-danger" role="alert">
+                <p>password did not match inputted user</p>
+            </div>
         </c:if>
         <%--displays error message if no user with that username--%>
         <c:if test="${username != null}">
-            <p style="color: red">No user with matching username</p>
+            <div class="alert alert-danger" role="alert">
+                <p>No user with matching username</p>
+            </div>
         </c:if>
         <form action="/login" method="POST">
             <div class="form-group">

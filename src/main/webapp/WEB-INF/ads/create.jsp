@@ -11,10 +11,14 @@
     <div class="container text-center">
         <h1>Create a new Ad</h1>
         <c:if test="${duplicateTitle != null}">
-            <p style="color: red">Sorry, title has already been used.</p>
+            <div class="alert alert-danger" role="alert">
+                <p>Sorry, title has already been used.</p>
+            </div>
         </c:if>
         <c:if test="${allValues != null}">
-            <p style="color: red">All fields must be filled in.</p>
+            <div class="alert alert-danger" role="alert">
+                <p>All fields must be filled in.</p>
+            </div>
         </c:if>
         <form action="/ads/create" method="post">
             <div class="form-group">

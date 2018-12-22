@@ -11,19 +11,29 @@
     <div class="container">
         <h1>Please fill in your information.</h1>
         <c:if test="${passwordNoMatch != null}">
-            <p style="color: red; font-weight: bold">Email must have a Capital Letter and One Number</p>
+            <div class="alert alert-danger" role="alert">
+                <p>Email must have a Capital Letter and One Number</p>
+            </div>
         </c:if>
         <c:if test="${notFormatEmail != null}">
-            <p style="color: red; font-weight: bold">Must enter valid email address</p>
+            <div class="alert alert-danger" role="alert">
+                <p>Must enter valid email address</p>
+            </div>
         </c:if>
         <c:if test="${passNotMatch != null}">
-            <p style="color: red; font-weight: bold">Sorry Passwword Did not Match</p>
+            <div class="alert alert-danger" role="alert">
+                <p>Sorry Passwword Did not Match</p>
+            </div>
         </c:if>
         <c:if test="${notFilled != null}">
-            <p style="color: red; font-weight: bold">All Inputs Must be Filled!!</p>
+            <div class="alert alert-danger" role="alert">
+                <p>All Inputs Must be Filled!!</p>
+            </div>
         </c:if>
         <c:if test="${hasDuplicate != null}">
-            <p style="color: red; font-weight: bold">Sorry, Username Taken</p>
+            <div class="alert alert-danger" role="alert">
+                <p>Sorry, Username Taken</p>
+            </div>
         </c:if>
         <form action="/register" method="post">
             <div class="form-group">

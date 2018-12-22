@@ -19,9 +19,10 @@
 		<input type="submit" class="btn btn-block btn-primary">
 	</form>
 	<c:if test="${noResult != null}">
-		<p style="color: red">Sorry, no results found...</p>
+		<div class="alert alert-danger" role="alert">
+			<p>Sorry, no results found...</p>
+		</div>
 	</c:if>
-
 	<c:forEach var="ad" items="${ads}">
 		<div class="col-md-6">
 			<form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
@@ -31,7 +32,6 @@
 			<p>${ad.description}</p>
 		</div>
 	</c:forEach>
-
 </div>
 </body>
 </html>

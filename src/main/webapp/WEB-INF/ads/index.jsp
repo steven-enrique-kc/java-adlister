@@ -14,12 +14,12 @@
     <h1>Here Are all the ads!</h1>
 
     <c:forEach var="ad" items="${ads}">
-        <div class="col-md-6">
+        <div class="col-md-6 ads">
             <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
                 <input type="hidden" name="param1" value="${ad.title}" style="display: none" >
-                <A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
+                <a href="javascript:document.submitForm${ad.id}.submit()">${ad.title}</a>
             </form>
-            <p>${ad.description}</p>
+            <p class="ads">${ad.description}</p>
         </div>
     </c:forEach>
 </div>

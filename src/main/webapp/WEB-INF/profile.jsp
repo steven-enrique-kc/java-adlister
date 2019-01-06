@@ -10,36 +10,40 @@
     <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
     <div class="container">
-        <h1>Welcome, ${sessionScope.user.username}!</h1>
-        <h2>Profile information</h2>
+        <div class="row text-center justify-content-center">
+            <h1>Welcome, ${sessionScope.user.username}!</h1>
+        </div>
+        <div class="row text-center justify-content-center">
+            <h2>Profile information</h2>
             <div>
                 Name: <cd:out value="${username}"></cd:out>
+                |
+                Email: <cd:out value="${email}"></cd:out>
             </div>
-            <div>
-    Email: <cd:out value="${email}"></cd:out>
-            </div>
-        <div>
+            <br>
             <form action="/editprofile" method="get">
                 <input type="submit" value="Edit Profile"
-                       name="Submit" id="editprofile_submit" />
+                       name="Submit" id="editprofile_submit"
+                       class="btn btn-primary"/>
             </form>
-        </div>        <h2>Here are your ads</h2>
-        <form action="/editprofile" method="get">
-            <input type="submit" value="Edit Profile"
-                   name="Submit" id="frm2_submit" />
-        </form>
-        <h2>Here are your ads</h2>
-        <cd:forEach var="ad" items="${userAds}">
-            <div class="col-md-6">
-                <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
-                    <input type="hidden" name="param1" value="${ad.title}" style="display: none" >
-                    <A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
-                </form>
-
-                <p>${ad.description}</p>
+        </div>
+        <div class="row text-center justify-content-center">
+            <div class="col-4">
+                <h2 style="text-decoration: underline">Here are your ads</h2>
+                <br>
             </div>
-
+        </div>
+        <div class="row text-center justify-content-center">
+            <cd:forEach var="ad" items="${userAds}">
+                <div class="col-md-4">
+                    <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
+                        <input type="hidden" name="param1" value="${ad.title}" style="display: none" >
+                        <A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
+                    </form>
+                    <p>${ad.description}</p>
+                </div>
             </cd:forEach>
+        </div>
     </div>
 
 

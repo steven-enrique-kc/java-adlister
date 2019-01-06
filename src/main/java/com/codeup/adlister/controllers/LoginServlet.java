@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 //            if not, redirects them back to login
         } else {
             request.setAttribute("incorrectPass", true);
-            response.sendRedirect("/login");
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 }

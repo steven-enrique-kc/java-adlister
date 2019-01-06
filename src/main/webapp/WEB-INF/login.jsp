@@ -13,7 +13,7 @@
         <%--displays error message if user has incorrect password--%>
         <c:if test="${incorrectPass != null}">
             <div class="alert alert-danger" role="alert">
-                <p>password did not match inputted user</p>
+                <p>Password did not match inputted user</p>
             </div>
         </c:if>
         <%--displays error message if no user with that username--%>

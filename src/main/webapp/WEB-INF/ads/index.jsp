@@ -11,8 +11,10 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 
 <div class="container">
-    <h1>Here Are all the ads!</h1>
-
+    <div class="row">
+        <h1>Here Are all the ads!</h1>
+    </div>
+    <div class="row justify-content-center">
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6 ads">
             <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
@@ -22,6 +24,7 @@
             <p class="ads">${ad.description}</p>
         </div>
     </c:forEach>
+    </div>
 </div>
 
 

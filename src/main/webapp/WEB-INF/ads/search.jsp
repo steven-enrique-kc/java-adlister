@@ -10,19 +10,27 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
-	<h1>Search for Ads</h1>
+	<div class="row text-center justify-content-center">
+		<h1>Search for Ads</h1>
+	</div>
+	<br>
+	<div class="row text-center justify-content-center">
 	<form action="/ads/search" method="post">
 		<div class="form-group">
 			<label for="search">Search</label>
+			<br>
 			<input id="search" name="search" class="form-control" type="text">
 		</div>
+		<br>
 		<input type="submit" class="btn btn-block btn-primary">
 	</form>
+	</div>
 	<c:if test="${noResult != null}">
 		<div class="alert alert-danger" role="alert">
 			<p>Sorry, no results found...</p>
 		</div>
 	</c:if>
+	<div class="row text-center justify-content-center">
 	<c:forEach var="ad" items="${ads}">
 		<div class="col-md-6">
 			<form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
@@ -32,6 +40,7 @@
 			<p>${ad.description}</p>
 		</div>
 	</c:forEach>
+	</div>
 </div>
 </body>
 </html>

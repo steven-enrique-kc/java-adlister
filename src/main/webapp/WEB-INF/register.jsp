@@ -9,7 +9,9 @@
 <body>
     <jsp:include page="partials/navbar.jsp" />
     <div class="container">
-        <h1>Please fill in your information.</h1>
+        <div class="row text-center justify-content-center">
+            <h1>Please fill in your information.</h1>
+        </div>
         <c:if test="${passwordNoMatch != null}">
             <div class="alert alert-danger" role="alert">
                 <p>Email must have a Capital Letter and One Number</p>
@@ -35,26 +37,28 @@
                 <p>Sorry, Username Taken</p>
             </div>
         </c:if>
-        <form action="/register" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input id="username" name="username" class="form-control" type="text" value="${username}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input id="email" name="email" class="form-control" type="text" value="${email}">
-            </div>
-            <div class="form-group">
-                <h5 style="font-weight: bold; text-decoration: underline">Password must have a Capital Letter and One Number</h5>
-                <label for="password">Password</label>
-                <input id="password" name="password" class="form-control" type="password" value="${password}">
-            </div>
-            <div class="form-group">
-                <label for="confirm_password">Confirm Password</label>
-                <input id="confirm_password" name="confirm_password" class="form-control" type="password">
-            </div>
-            <input type="submit" class="btn btn-primary btn-block" id="registerSubmit">
-        </form>
+        <div class="row text-center justify-content-center">
+            <form action="/register" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" name="username" class="form-control" type="text" value="${username}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" class="form-control" type="text" value="${email}">
+                </div>
+                <div class="form-group">
+                    <h5 style="font-weight: bold; text-decoration: underline">Password must have a Capital Letter and One Number</h5>
+                    <label for="password">Password</label>
+                    <input id="password" name="password" class="form-control" type="password" value="${password}">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input id="confirm_password" name="confirm_password" class="form-control" type="password">
+                </div>
+                <input type="submit" class="btn btn-primary btn-block" id="registerSubmit">
+            </form>
+        </div>
     </div>
 </body>
 </html>

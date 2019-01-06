@@ -53,11 +53,14 @@
 
     p.ads {
         font-size: 18px;
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
 
+
     /*B98389 english lavender*/
-
-
 </style>

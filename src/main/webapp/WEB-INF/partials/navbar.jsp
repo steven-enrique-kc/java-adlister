@@ -3,7 +3,7 @@
     <div class="container-fluid glad-nav">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header glad-nav">
-            <a class="navbar-brand glad-nav" href="/ads">Adlister</a>
+            <a class="navbar-brand glad-nav" href="/">Adlister</a>
         </div>
         <ul class="nav navbar-nav navbar-right glad-nav ">
             <c:choose>

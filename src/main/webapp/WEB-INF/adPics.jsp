@@ -15,7 +15,10 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container text-center">
-<h1>Ad title: ${ad.title}</h1>
+    <div class="row text-center justify-content-center">
+        <h1>Ad title: ${ad.title}</h1>
+        <br>
+    </div>
     <form action="/count" method="post">
         <label for="picture">Add a link to a picture</label>
         <input type="hidden" name="title" value="${ad.title}">

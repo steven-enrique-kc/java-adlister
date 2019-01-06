@@ -29,17 +29,17 @@
                 <label>Category</label>
                     <br>
                 <p>(Please select at least one category)</p>
-                    <input name="1" value="1" type="checkbox"> For Sale
+                    <label for="1" class="border-right">For Sale |<br><input name="1" value="1" type="checkbox" id="1"></label>
                     <input name="1" value="0" type="hidden">
-                    <input name="2" value="1" type="checkbox"> Electronics
+                    <label for="2"> Electronics | <br><input name="2" value="1" type="checkbox" id="2"></label>
                     <input name="2" value="0" type="hidden">
-                    <input name="3" value="1" type="checkbox"> Sports Equipment
+                    <label for="3"> Sports Equipment | <br><input name="3" value="1" type="checkbox" id="3"></label>
                     <input name="3" value="0" type="hidden">
-                    <input name="4" value="1" type="checkbox"> Outdoors
+                    <label for="3"> Outdoors | <br><input name="4" value="1" type="checkbox" id="4"></label>
                     <input name="4" value="0" type="hidden">
-                    <input name="5" value="1" type="checkbox"> Vehicles
+                    <label for="5"> Vehicles | <br><input name="5" value="1" type="checkbox" id="5"></label>
                     <input name="5" value="0" type="hidden">
-                    <input name="6" value="1" type="checkbox"> Free
+                    <label for="6"> Free<br><input name="6" value="1" type="checkbox" id="6"></label>
                     <input name="6" value="0" type="hidden">
                     <br>
             </div>

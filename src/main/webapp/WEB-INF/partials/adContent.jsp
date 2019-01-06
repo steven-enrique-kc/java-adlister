@@ -1,59 +1,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="card" style="width: 18rem;">
+<div class="container">
     <c:choose>
 
     <c:when test="${param.picture == \"\"}">
-        <img class="card-img-top" src="https://d2rormqr1qwzpz.cloudfront.net/photos/2013/07/02/49514-c26-b005gsyxhw-1-l.jpg" alt="Happy Pic">
+        <div class="row text-center justify-content-center">
+            <img src="https://d2rormqr1qwzpz.cloudfront.net/photos/2013/07/02/49514-c26-b005gsyxhw-1-l.jpg" alt="Glad Pic">
+        </div>
     </c:when>
 
     <c:otherwise>
-        <img class="card-img-top" src="${param.picture}" alt="Happy Pic" style="width: 600px; height: 300px">
+        <div class="row text-center justify-content-center">
+            <img src="${param.picture}" alt="Happy Pic" style="width: 600px; height: 300px">
+        </div>
     </c:otherwise>
 
         </c:choose>
 
-    <%--<h1>User ID : ${sessionScope.user.id}</h1>--%>
-    <%--<h1>Ad user ID : ${param.userId}</h1>--%>
-    <%--<h1>Ad ID : ${sessionScope.thisAdd.id}</h1>--%>
-
-
-    <div class="card-body">
-        <h5 class="card-title">${param.title}</h5>
-        <p class="card-text">${param.description}</p>
-        <c:forEach var="catagory" items="${param.categories}">
-            <p>Categories: ${catagory}</p>
-        </c:forEach>
-        <form action="/ads" method="get">
-            <input type="submit" value="Return to Ads"
-                   name="Submit" id="frm1_submit" />
+        <div class="row text-center justify-content-center">
+            <h1 class="card-title">${param.title}</h1>
+            <p class="card-text">${param.description}</p>
+            <p>Categories: ${param.categories}</p>
+        </div>
+    <div class="row text-center justify-content-center">
+            <form action="/ads" method="get">
+                <input type="submit" value="Return to Ads"
+                       name="Submit" id="frm1_submit"
+                       class="btn btn-primary btn-block"/>
+            </form>
+            <form action="/ads/search" method="get">
+                <input type="submit" value="Return to Ads Search"
+                       name="Submit" id="frm2_submit"
+                       class="btn btn-success btn-block"/>
+            </form>
+        <form name="submitPic" method="post" action="/ads/pic">
+            <input type="hidden" name="title" value="${param.title}">
+            <input type="submit" name="param1" value="Add Picture"
+                   class="btn btn-info btn-block">
+            <A HREF="javascript:document.submitPic.submit()"></A>
         </form>
-        <form action="/ads/search" method="get">
-            <input type="submit" value="Return to Ads Search"
-                   name="Submit" id="frm2_submit" />
-        </form>
+            <c:if test="${sessionScope.user.id == param.userId}">
+                <form name="submitForm" method="post" action="/editad">
+                    <input type="hidden" name="title" value="${param.title}">
+                    <input type="submit" name="param1" value="Edit Ad"
+                           class="btn btn-warning btn-block">
+                    <A HREF="javascript:document.submitForm.submit()"></A>
+                </form>
+
+                <form name="submitForm" method="post" action="/deletead">
+                    <input type="hidden" name="title" value="${param.title}">
+                    <input type="submit" name="param1" value="Delete Ad"
+                           class="btn btn-danger btn-block">
+                    <A HREF="javascript:document.submitForm.submit()"></A>
+                </form></c:if>
     </div>
-
-    <c:if test="${sessionScope.user.id == param.userId}">
-        <form name="submitForm" method="post" action="/editad">
-            <input type="hidden" name="title" value="${param.title}">
-            <input type="submit" name="param1" value="Edit Ad">
-            <A HREF="javascript:document.submitForm.submit()"></A>
-        </form>
-
-        <form name="submitForm" method="post" action="/deletead">
-            <input type="hidden" name="title" value="${param.title}">
-            <input type="submit" name="param1" value="Delete Ad">
-            <A HREF="javascript:document.submitForm.submit()"></A>
-        </form></c:if>
-
-    <form name="submitPic" method="post" action="/ads/pic">
-        <input type="hidden" name="title" value="${param.title}">
-        <input type="submit" name="param1" value="Add Picture">
-        <A HREF="javascript:document.submitPic.submit()"></A>
-    </form>
-
-
-</div>
+    </div>
 
 
 

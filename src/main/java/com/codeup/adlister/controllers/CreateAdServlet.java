@@ -100,7 +100,7 @@ public class CreateAdServlet extends HttpServlet {
         request.getSession().setAttribute("userAds", userAds);
 
 //        redirects back to ads index
-        response.sendRedirect("/ads");
+        response.sendRedirect("/profile");
 
 
     }

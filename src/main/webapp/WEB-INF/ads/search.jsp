@@ -11,7 +11,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
 	<div class="row text-center justify-content-center">
-		<h1>Search for Ads</h1>
+		<h1>Search for Glads</h1>
 	</div>
 	<br>
 	<div class="row text-center justify-content-center">

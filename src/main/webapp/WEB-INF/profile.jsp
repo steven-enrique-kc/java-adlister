@@ -29,7 +29,7 @@
         </div>
         <div class="row text-center justify-content-center">
             <div class="col-4">
-                <h2 style="text-decoration: underline">Here are your ads</h2>
+                <h2 style="text-decoration: underline">Here are your Glads</h2>
                 <br>
             </div>
         </div>

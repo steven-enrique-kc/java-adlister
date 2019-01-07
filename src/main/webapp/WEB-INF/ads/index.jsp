@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="row">
-        <h1>Here Are all the ads!</h1>
+        <h1>Here Are all the Glads!</h1>
     </div>
     <div class="row justify-content-center">
     <c:forEach var="ad" items="${ads}">

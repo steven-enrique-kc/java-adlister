@@ -9,7 +9,7 @@
 <html>
 <head>
     <jsp:include page="/WEB-INF/partials/head.jsp">
-        <jsp:param name="title" value="Indiv Add" />
+        <jsp:param name="title" value="Indiv Glad" />
     </jsp:include>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>

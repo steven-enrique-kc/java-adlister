@@ -53,10 +53,15 @@
 
     p.ads {
         font-size: 18px;
+        margin-bottom: 30px;
         width: 250px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .noMargin{
+        margin-bottom: 0px;
     }
 
 

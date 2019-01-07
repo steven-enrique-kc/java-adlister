@@ -9,7 +9,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container">
-    <h1>Edit the Ad</h1>
+    <h1>Edit the Glad</h1>
     <form action="/ads" method="post">
         <div class="form-group">
             <label for="title">New Title</label>
@@ -21,61 +21,61 @@
         </div>
         <c:choose>
             <c:when test="${categories.indexOf(\"For Sale\") == -1}">
-                <input name="1" value="1" type="checkbox"> For Sale
+                <label for="1"> For Sale|<br><input name="1" value="1" type="checkbox" id="1"></label>
                 <input name="1" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="1" value="1" type="checkbox" checked> For Sale
+                <label for="1"> For Sale|<br><input name="1" value="1" type="checkbox" id="1" checked></label>
                 <input name="1" value="0" type="hidden">
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${categories.indexOf(\"Electronics\") == -1}">
-                <input name="2" value="1" type="checkbox"> Electronics
+                <label for="2"> Electronics |<br><input name="2" value="1" type="checkbox" id="2"></label>
                 <input name="2" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="2" value="1" type="checkbox" checked> Electronics
+                <label for="2"> Electronics |<br><input name="2" value="1" type="checkbox" id="2" checked></label>
                 <input name="2" value="0" type="hidden">
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${categories.indexOf(\"Sports Equipment\") == -1}">
-                <input name="3" value="1" type="checkbox"> Sports Equipment
+                <label for="3"> Sports Equipment |<br><input name="3" value="1" type="checkbox" id="3"></label>
                 <input name="3" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="3" value="1" type="checkbox" checked> Sports Equipment
+                <label for="3"> Sports Equipment |<br><input name="3" value="1" type="checkbox" id="3" checked></label>
                 <input name="3" value="0" type="hidden">
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${categories.indexOf(\"Outdoors\") == -1}">
-                <input name="4" value="1" type="checkbox"> Outdoors
+                <label for="4"> Outdoors |<br><input name="4" value="1" type="checkbox" id="4"></label>
                 <input name="4" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="4" value="1" type="checkbox" checked> Outdoors
+                <label for="4"> Outdoors |<br><input name="4" value="1" type="checkbox" id="4" checked></label>
                 <input name="4" value="0" type="hidden">
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${categories.indexOf(\"Vehicles\") == -1}">
-                <input name="5" value="1" type="checkbox"> Vehicles
+                <label for="5"> Vehicles |<br><input name="5" value="1" type="checkbox" id="5"></label>
                 <input name="5" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="5" value="1" type="checkbox" checked> Vehicles
+                <label for="5"> Vehicles |<br><input name="5" value="1" type="checkbox" id="5" checked></label>
                 <input name="5" value="0" type="hidden">
             </c:otherwise>
         </c:choose>
         <c:choose>
             <c:when test="${categories.indexOf(\"Free Stuff\") == -1}">
-                <input name="6" value="1" type="checkbox"> Free
+                <label for="6"> Free<br><input name="6" value="1" type="checkbox" id="6"></label>
                 <input name="6" value="0" type="hidden">
             </c:when>
             <c:otherwise>
-                <input name="6" value="1" type="checkbox" checked> Free
+                <label for="6"> Free<br><input name="6" value="1" type="checkbox" id="6" checked></label>
                 <input name="6" value="0" type="hidden">
             </c:otherwise>
         </c:choose>

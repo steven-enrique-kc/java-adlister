@@ -12,7 +12,7 @@
         <div class="row justify-content-center text-center">
             <div class="justify-content-center text-center">
                 <h1>Welcome to the Gladlister!</h1>
-                <h6>The Place for All your Postive Afirmations!!</h6>
+                <h6>The Place for All your Positive Affirmations!!</h6>
                 <br>
                 <img src="http://4.bp.blogspot.com/_iBcEv0GPMy0/TDonaiJpQTI/AAAAAAAAB2w/3Tq_62RXwOo/s1600/glad.jpg" alt="Happy Man">
             </div>

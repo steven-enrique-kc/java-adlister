@@ -23,12 +23,12 @@
         </div>
     <div class="row text-center justify-content-center">
             <form action="/ads" method="get">
-                <input type="submit" value="Return to Ads"
+                <input type="submit" value="Return to Glads"
                        name="Submit" id="frm1_submit"
                        class="btn btn-primary btn-block"/>
             </form>
             <form action="/ads/search" method="get">
-                <input type="submit" value="Return to Ads Search"
+                <input type="submit" value="Return to Glads Search"
                        name="Submit" id="frm2_submit"
                        class="btn btn-success btn-block"/>
             </form>
@@ -41,14 +41,14 @@
             <c:if test="${sessionScope.user.id == param.userId}">
                 <form name="submitForm" method="post" action="/editad">
                     <input type="hidden" name="title" value="${param.title}">
-                    <input type="submit" name="param1" value="Edit Ad"
+                    <input type="submit" name="param1" value="Edit Glad"
                            class="btn btn-warning btn-block">
                     <A HREF="javascript:document.submitForm.submit()"></A>
                 </form>
 
                 <form name="submitForm" method="post" action="/deletead">
                     <input type="hidden" name="title" value="${param.title}">
-                    <input type="submit" name="param1" value="Delete Ad"
+                    <input type="submit" name="param1" value="Delete Glad"
                            class="btn btn-danger btn-block">
                     <A HREF="javascript:document.submitForm.submit()"></A>
                 </form></c:if>

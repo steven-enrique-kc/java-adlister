@@ -16,7 +16,7 @@
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
 <div class="container text-center">
     <div class="row text-center justify-content-center">
-        <h1>Ad title: ${ad.title}</h1>
+        <h1>Glad title: ${ad.title}</h1>
         <br>
     </div>
     <form action="/count" method="post">

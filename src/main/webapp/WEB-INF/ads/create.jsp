@@ -9,7 +9,7 @@
 <body>
 <jsp:include page="/WEB-INF/partials/navbar.jsp" />
     <div class="container text-center">
-        <h1>Create a new Ad</h1>
+        <h1>Create a new Glad</h1>
         <c:if test="${duplicateTitle != null}">
             <div class="alert alert-danger" role="alert">
                 <p>Sorry, title has already been used.</p>

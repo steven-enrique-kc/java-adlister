@@ -33,7 +33,7 @@ public class CounterServlet extends HttpServlet {
         }
         Ad ad = DaoFactory.getAdsDao().findAdd(title);
         List<Integer> catagory = DaoFactory.getAdsDao().addPicture(pic, ad);
-        resp.sendRedirect("/ads");
+        resp.sendRedirect("/profile");
 
         }
 }

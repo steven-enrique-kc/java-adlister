@@ -6,11 +6,11 @@ VALUES ('jim', 'jim@email.com', '$2a$12$R.nDWNBzDsNWxhqsiWIDGu54isnuVqb7NFcKZqZi
        ('mike', 'mike@email.com', '$2a$12$cMnbUEUwi.fy814v8p7lHuq5kUcWYtpee97JV1WD531nbjH8jrvaO');
 
 INSERT INTO ads (user_id, title, description)
-VALUES (1, 'Bowling Ball', 'Used for bowling.'),
-       (2, 'Cellphone', 'Used for making calls.'),
-       (1, 'Car', 'Used for driving.'),
-       (2, 'Television', 'Used for watching news and entertainment.'),
-       (1, 'Bed', 'Great for sleeping.'),
+VALUES (1, 'Bowling Ball', 'Much Loved, now needs a new home'),
+       (2, 'Cellphone', 'The face I look upon the most'),
+       (1, 'Car', 'The trusty stead I use to traverse this urban jungle'),
+       (2, 'Television', 'The perfect ending for each and every day'),
+       (1, 'Bed', 'Were I spend 33% of my time statically'),
        (2, 'Grill', 'Free grill to good home'),
        (1, 'Computer', 'Used computer. Not using anymore. Hopefully someone can get some use out of it.');
 
@@ -21,9 +21,6 @@ VALUES ('For Sale'),
        ('Outdoors'),
        ('Vehicles'),
        ('Free Stuff');
-
-       INSERT INTO categories (category)
-VALUES ("nothing");
 
 INSERT INTO ads_categories (ad_id, category_id)
 VALUES (1, 1),

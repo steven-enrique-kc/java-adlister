@@ -33,14 +33,14 @@
                 <br>
             </div>
         </div>
-        <div class="row text-center justify-content-center">
+        <div class="row justify-content-center">
             <cd:forEach var="ad" items="${userAds}">
-                <div class="col-md-4">
-                    <form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
+                <div class="col-md-4 ads">
+                    <form name="submitForm${ad.id}" method="POST" action="/ads/indiv" class="noMargin">
                         <input type="hidden" name="param1" value="${ad.title}" style="display: none" >
                         <A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
                     </form>
-                    <p>${ad.description}</p>
+                    <p class="ads">${ad.description}</p>
                 </div>
             </cd:forEach>
         </div>

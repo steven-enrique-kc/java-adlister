@@ -35,7 +35,7 @@
                     <input name="2" value="0" type="hidden">
                     <label for="3"> Sports Equipment | <br><input name="3" value="1" type="checkbox" id="3"></label>
                     <input name="3" value="0" type="hidden">
-                    <label for="3"> Outdoors | <br><input name="4" value="1" type="checkbox" id="4"></label>
+                    <label for="4"> Outdoors | <br><input name="4" value="1" type="checkbox" id="4"></label>
                     <input name="4" value="0" type="hidden">
                     <label for="5"> Vehicles | <br><input name="5" value="1" type="checkbox" id="5"></label>
                     <input name="5" value="0" type="hidden">

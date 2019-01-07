@@ -30,14 +30,14 @@
 			<p>Sorry, no results found...</p>
 		</div>
 	</c:if>
-	<div class="row text-center justify-content-center">
+	<div class="row justify-content-center">
 	<c:forEach var="ad" items="${ads}">
-		<div class="col-md-6">
-			<form name="submitForm${ad.id}" method="POST" action="/ads/indiv">
+		<div class="col-md-6 ads">
+			<form name="submitForm${ad.id}" method="POST" action="/ads/indiv" class="noMargin">
 				<input type="hidden" name="param1" value="${ad.title}" style="display: none" >
 				<A HREF="javascript:document.submitForm${ad.id}.submit()">${ad.title}</A>
 			</form>
-			<p>${ad.description}</p>
+			<p class="ads">${ad.description}</p>
 		</div>
 	</c:forEach>
 	</div>
